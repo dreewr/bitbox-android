@@ -1,17 +1,20 @@
-package io.ubivis.tmppres.injection.module
+package bitbox.project.presentation.injection.module
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import bitbox.project.domain.executor.PostExecutionThread
+import bitbox.project.presentation.MainActivity
+import bitbox.project.presentation.UiThread
+import bitbox.project.presentation.viewmodel.MainViewModel
+import bitbox.project.presentation.viewmodel.ViewModelFactory
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
-import io.ubivis.domain.executor.PostExecutionThread
-import io.ubivis.tmppres.UiThread
-import io.ubivis.tmppres.MainActivity
-import io.ubivis.tmppres.viewmodel.MainViewModel
-import io.ubivis.tmppres.viewmodel.ViewModelFactory
+
+
 import kotlin.reflect.KClass
 
 /**

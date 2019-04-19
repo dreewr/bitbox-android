@@ -1,12 +1,12 @@
-package io.ubivis.tmppres
+package bitbox.project.presentation
 
 import android.app.Activity
 import android.app.Application
 import android.util.Log
+import bitbox.project.presentation.injection.DaggerApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
-import io.ubivis.tmppres.injection.DaggerApplicationComponent
 import javax.inject.Inject
 
 /**
@@ -15,7 +15,7 @@ import javax.inject.Inject
  * on ubivisnb10
  * on 3/27/19.
  */
-class TestApplication: Application(), HasActivityInjector {
+class BitboxApplication: Application(), HasActivityInjector {
 
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Activity>

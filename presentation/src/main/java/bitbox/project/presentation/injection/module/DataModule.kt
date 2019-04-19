@@ -1,9 +1,9 @@
-package io.ubivis.tmppres.injection.module
+package bitbox.project.presentation.injection.module
 
+import bitbox.project.data.DataRepository
+import bitbox.project.domain.Repository
 import dagger.Binds
 import dagger.Module
-import io.ubivis.domain.Repository
-import io.ubivis.data.DataRepository
 
 /**
  * Created by André Santos

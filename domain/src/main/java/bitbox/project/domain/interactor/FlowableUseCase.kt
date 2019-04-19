@@ -5,7 +5,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.DisposableSubscriber
-import io.ubivis.domain.executor.PostExecutionThread
+import bitbox.project.domain.executor.PostExecutionThread
 
 /**
  * Created by André Santos

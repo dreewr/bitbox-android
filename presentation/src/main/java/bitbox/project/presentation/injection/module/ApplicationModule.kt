@@ -1,4 +1,4 @@
-package io.ubivis.tmppres.injection.module
+package bitbox.project.presentation.injection.module
 
 import android.app.Application
 import android.content.Context

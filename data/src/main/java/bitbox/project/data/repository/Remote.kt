@@ -12,6 +12,6 @@ import bitbox.project.domain.model.BlockResponse
 
 interface Remote {
 
-    fun getBlock(blochHash: String): Observable<BlockResponse>
+    fun getBlock(blockHash: String): Observable<BlockResponse>
 
 }

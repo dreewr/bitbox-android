@@ -1,11 +1,11 @@
 package bitbox.project.domain.interactor
 
+import bitbox.project.domain.executor.PostExecutionThread
 import io.reactivex.Completable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableCompletableObserver
 import io.reactivex.schedulers.Schedulers
-import io.ubivis.domain.executor.PostExecutionThread
 
 /**
  * Created by André Santos
@@ -19,7 +19,8 @@ import io.ubivis.domain.executor.PostExecutionThread
  */
 
 abstract class CompletableUseCase<in Params> constructor(
-        private val postExecutionThread: PostExecutionThread) {
+        private val postExecutionThread: PostExecutionThread
+) {
 
     private val disposables = CompositeDisposable()
 

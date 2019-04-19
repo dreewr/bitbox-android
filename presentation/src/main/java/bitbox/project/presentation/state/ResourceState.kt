@@ -1,4 +1,4 @@
-package io.ubivis.tmppres.state
+package bitbox.project.presentation.state
 
 /**
  * Created by André Santos

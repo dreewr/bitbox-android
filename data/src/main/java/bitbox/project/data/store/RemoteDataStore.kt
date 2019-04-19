@@ -1,9 +1,8 @@
 package bitbox.project.data.store
 
 import bitbox.project.domain.model.BlockResponse
-import io.reactivex.Flowable
 import io.reactivex.Observable
-import io.ubivis.data.repository.Remote
+import bitbox.project.data.repository.Remote
 import javax.inject.Inject
 
 

@@ -3,11 +3,11 @@ ext{
     androidBuildToolsVersion = "28.0.3"
     androidMinSdkVersion = 21
     androidTargetSdkVersion = 26
-    androidCompileSdkVersion = 26
+    androidCompileSdkVersion = 28
     kotlinVersion = '1.2.10'
 
     //Libraries
-    supportLibraryVersion = '26.1.0'
+    supportLibraryVersion = '28.0.3'
     rxJavaVersion = '2.0.2'
     javaxAnnotationVersion = '1.0'
     javaxInjectVersion = '1'
@@ -25,7 +25,7 @@ ext{
     supportLibraryVersion = '26.1.0'
     timberVersion = '4.5.1'
     glideVersion = '4.0.0'
-    daggerVersion = '2.11'
+    daggerVersion = '2.18'
     glassfishAnnotationVersion = '10.0-b28'
     archCompVersion = '1.1.1'
     roomVersion = '1.0.0'
@@ -71,12 +71,14 @@ ext{
             archExtensions:     "android.arch.lifecycle:extensions:${archCompVersion}",
             archCompiler:       "android.arch.lifecycle:compiler:${archCompVersion}",
             glide:              "com.github.bumptech.glide:glide:${glideVersion}",
+
             androidSupportV4:   "com.android.support:support-v4:${supportLibraryVersion}",
             androidSupportV13:  "com.android.support:support-v13:${supportLibraryVersion}",
             appCompatV7:        "com.android.support:appcompat-v7:${supportLibraryVersion}",
             supportRecyclerView:"com.android.support:recyclerview-v7:${supportLibraryVersion}",
             supportDesign:      "com.android.support:design:${supportLibraryVersion}",
             timber:             "com.jakewharton.timber:timber:${timberVersion}",
+
             daggerSupport:      "com.google.dagger:dagger-android-support:${daggerVersion}",
             daggerProcessor:    "com.google.dagger:dagger-android-processor:${daggerVersion}",
             glassfishAnnotation: "org.glassfish:javax.annotation:${glassfishAnnotationVersion}",

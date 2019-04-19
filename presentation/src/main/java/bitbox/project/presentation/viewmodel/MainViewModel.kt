@@ -1,17 +1,18 @@
-package io.ubivis.tmppres.viewmodel
+package bitbox.project.presentation.viewmodel
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import io.reactivex.observers.DisposableObserver
-import io.ubivis.domain.model.BlockResponse
-import io.ubivis.domain.model.temporary.UserAuth
+import bitbox.project.domain.model.BlockResponse
+
 import javax.inject.Inject
 
-import io.ubivis.domain.usecase.GetBlock
-import io.ubivis.tmppres.state.Resource
-import io.ubivis.tmppres.state.ResourceState
+import bitbox.project.domain.usecase.GetBlock
+import bitbox.project.presentation.state.Resource
+import bitbox.project.presentation.state.ResourceState
+
 
 /**
  * Created by André Santos
@@ -20,7 +21,6 @@ import io.ubivis.tmppres.state.ResourceState
  * on 3/30/19.
  */
 open class MainViewModel @Inject internal constructor(
-        private val userAuth:UserAuth ,
         private val getBlock: GetBlock?): ViewModel() {
 
     private val blockResponse: MutableLiveData<Resource<BlockResponse>> = MutableLiveData()

@@ -19,6 +19,7 @@ class RemoteImpl @Inject constructor(
         private val service: RetrofitService) : Remote {
 
     override fun getBlock(blockHash: String): Observable<BlockResponse> {
+
         return service.getBlock(blockHash)
     }
 }

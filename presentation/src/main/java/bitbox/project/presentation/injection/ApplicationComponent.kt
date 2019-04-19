@@ -1,15 +1,15 @@
-package io.ubivis.tmppres.injection
+package bitbox.project.presentation.injection
 
 import android.app.Application
+import bitbox.project.presentation.BitboxApplication
+import bitbox.project.presentation.injection.module.ApplicationModule
+import bitbox.project.presentation.injection.module.DataModule
+import bitbox.project.presentation.injection.module.PresentationModule
+import bitbox.project.presentation.injection.module.RemoteModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
-import io.ubivis.domain.model.temporary.UserAuth
-import io.ubivis.tmppres.TestApplication
-import io.ubivis.tmppres.injection.module.ApplicationModule
-import io.ubivis.tmppres.injection.module.DataModule
-import io.ubivis.tmppres.injection.module.PresentationModule
-import io.ubivis.tmppres.injection.module.RemoteModule
+
 import javax.inject.Singleton
 
 /**
@@ -38,5 +38,5 @@ interface ApplicationComponent {
     }
 
     //Componente é criado pela Application
-    fun inject(app: TestApplication)
+    fun inject(app: BitboxApplication)
 }

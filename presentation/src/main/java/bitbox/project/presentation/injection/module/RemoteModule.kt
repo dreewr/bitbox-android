@@ -1,14 +1,13 @@
-package io.ubivis.tmppres.injection.module
+package bitbox.project.presentation.injection.module
 
+import bitbox.projec.remote.RemoteImpl
+import bitbox.projec.remote.service.RetrofitService
+import bitbox.projec.remote.service.RetrofitServiceFactory
+import bitbox.project.data.repository.Remote
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import io.ubivis.data.repository.Remote
-import io.ubivis.domain.model.temporary.UserAuth
-import io.ubivis.remote.RemoteImpl
-import io.ubivis.remote.service.RetrofitService
-import io.ubivis.remote.service.RetrofitServiceFactory
-import io.ubivis.tmppres.BuildConfig
+
 
 /**
  * Created by André Santos
@@ -24,9 +23,14 @@ abstract class RemoteModule {
         @Provides
         @JvmStatic
         //Coloco aqui
-        fun provideRetrofitService(userAuth: UserAuth): RetrofitService {
-            return RetrofitServiceFactory.makeAuthorizedRetrofitService(userAuth.token)
+//        fun provideRetrofitService(userAuth: UserAuth): RetrofitService {
+//            return RetrofitServiceFactory.makeAuthorizedRetrofitService(userAuth.token)
+//        }
+
+        fun provideRetrofitService(): RetrofitService {
+            return RetrofitServiceFactory.makeRetrofitService(isDebug = false)
         }
+
 
     }
 

@@ -1,12 +1,11 @@
-package io.ubivis.domain.interactor
+package bitbox.project.domain.interactor
 
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
-import io.ubivis.domain.executor.PostExecutionThread
-import io.ubivis.domain.executor.ThreadExecutor
+import bitbox.project.domain.executor.PostExecutionThread
 
 /**
  * Created by André Santos

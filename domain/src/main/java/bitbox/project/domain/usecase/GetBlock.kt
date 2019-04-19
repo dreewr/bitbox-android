@@ -2,7 +2,6 @@ package bitbox.project.domain.usecase
 
 import io.reactivex.Observable
 import bitbox.project.domain.Repository
-import bitbox.project.domain.executor.ThreadExecutor
 import bitbox.project.domain.executor.PostExecutionThread
 import bitbox.project.domain.interactor.ObservableUseCase
 import bitbox.project.domain.model.BlockResponse

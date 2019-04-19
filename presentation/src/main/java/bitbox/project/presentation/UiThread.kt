@@ -1,7 +1,7 @@
-package io.ubivis.tmppres
+package bitbox.project.presentation
 
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.ubivis.domain.executor.PostExecutionThread
+import bitbox.project.domain.executor.PostExecutionThread
 import javax.inject.Inject
 import io.reactivex.Scheduler
 

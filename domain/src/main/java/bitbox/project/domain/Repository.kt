@@ -1,7 +1,8 @@
 package bitbox.project.domain
 
+import bitbox.project.domain.model.BlockResponse
 import io.reactivex.Observable
-import io.ubivis.domain.model.BlockResponse
+
 
 /**
  * Created by André Luiz Rodrigues dos Santos
