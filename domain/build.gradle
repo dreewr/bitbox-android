@@ -1,0 +1,17 @@
+apply plugin: 'kotlin'
+
+dependencies {
+
+    //domainDependencies vai pegar as dependências que definimos
+    //em dependencies.gradle, e aqui usamos só o nome que demos naquele
+    //array de dependencies com a versão configurada
+    def domainDependencies = rootProject.ext.domainDependencies
+    implementation domainDependencies.javaxAnnotation
+    implementation domainDependencies.javaxInject
+    implementation domainDependencies.rxJava
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}
+
+//No código do Joe Birch ambas as configurações estão na versão 1.6
+sourceCompatibility = "7"
+targetCompatibility = "7"
