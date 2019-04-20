@@ -61,6 +61,8 @@ dependencies {
     implementation project(':data')
     implementation project(':remote')
 
+    implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     kaptTest presentationDependencies.daggerCompiler
     kapt presentationDependencies.daggerCompiler
     kapt presentationDependencies.daggerProcessor

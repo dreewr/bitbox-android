@@ -44,7 +44,7 @@
             android:nextFocusForward="@+id/et_password"
             android:paddingLeft="24dp"
             android:paddingTop="12dp"
-            android:textStyle="bold"
+
             android:singleLine="true"
             android:textColor="@color/icons"
     />
@@ -66,7 +66,6 @@
             android:paddingLeft="24dp"
             android:paddingTop="12dp"
             android:singleLine="true"
-            android:textStyle="bold"
             android:textColor="@color/icons"
     />
 
@@ -86,7 +85,7 @@
 
     <ProgressBar android:id="@+id/pgs_login"
                  android:visibility="gone"
-            android:layout_width="wrap_content" android:layout_height="@dimen/btn_height"/>
+                 android:layout_width="wrap_content" android:layout_height="@dimen/btn_height"/>
 
 
 </LinearLayout>

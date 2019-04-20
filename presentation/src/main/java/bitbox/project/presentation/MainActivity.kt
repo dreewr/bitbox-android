@@ -1,7 +1,7 @@
 package bitbox.project.presentation
 
+import bitbox.project.presentation.R
 import android.os.Bundle
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -37,9 +37,9 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel.fetchBlock("13320")
 //
-        mainViewModel.getBlock().observe(this, Observer<Resource<BlockResponse>>       { response ->
+        mainViewModel.getBlock().observe(this, Observer<Resource<BlockResponse>>{ response ->
 //
-           txt_simpletext.text = response?.data?.block?.hash
+           //txt_simpletext.text = response?.data?.block?.hash
         })
 
     }
