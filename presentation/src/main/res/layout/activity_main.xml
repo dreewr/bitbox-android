@@ -6,6 +6,20 @@
               android:gravity="center_horizontal"
               android:layout_height="match_parent">
 
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:background="@drawable/bg_transparent_round"
+                  android:layout_marginTop="48dp"
+                  android:layout_marginLeft="32dp" android:layout_marginRight="32dp"
+                 >
+        <TextView
+                android:layout_width="wrap_content" android:layout_height="40dp"
+                android:layout_marginStart="32dp"
+
+        android:text="Joe Doe" android:gravity="center_vertical" android:textSize="16sp"
+        android:textColor="@color/accent"/>
+
+    </LinearLayout>
     <TextView
             android:visibility="gone"
             android:id="@+id/txt_simpletext"
@@ -84,9 +98,10 @@
             android:drawablePadding="8dp"
             android:drawableEnd="@drawable/ic_arrow_forward_black_24dp"/>
 
+
     <ProgressBar android:id="@+id/pgs_login"
                  android:visibility="gone"
-            android:layout_width="wrap_content" android:layout_height="@dimen/btn_height"/>
+                 android:layout_width="wrap_content" android:layout_height="@dimen/btn_height"/>
 
 
 </LinearLayout>
