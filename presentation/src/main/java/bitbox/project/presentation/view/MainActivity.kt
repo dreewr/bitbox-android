@@ -1,16 +1,13 @@
-package bitbox.project.presentation
+package bitbox.project.presentation.view
 
-import bitbox.project.presentation.R
+
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import bitbox.project.domain.model.BlockResponse
-import bitbox.project.presentation.state.Resource
+import bitbox.project.presentation.R
 import bitbox.project.presentation.viewmodel.MainViewModel
 import bitbox.project.presentation.viewmodel.ViewModelFactory
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -37,10 +34,10 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel.fetchBlock("13320")
 //
-        mainViewModel.getBlock().observe(this, Observer<Resource<BlockResponse>>{ response ->
+        //mainViewModel.getBlock().observe(this, Observer<Resource<BlockResponse>>{ response ->
 //
            //txt_simpletext.text = response?.data?.block?.hash
-        })
+       // })
 
     }
 

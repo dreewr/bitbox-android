@@ -1,7 +1,9 @@
-package bitbox.project.presentation
+package bitbox.project.presentation.view
+
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import bitbox.project.presentation.R
 
 class LoginActivity : AppCompatActivity() {
 
