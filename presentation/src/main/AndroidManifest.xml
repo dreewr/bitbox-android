@@ -21,6 +21,10 @@
         </activity>
         <activity android:name=".view.LoginActivity">
         </activity>
+        <activity android:name=".view.ProductsActivity">
+        </activity>
+        <activity android:name=".view.VerificationActivity">
+        </activity>
     </application>
 
 </manifest>
