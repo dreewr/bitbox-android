@@ -23,7 +23,7 @@ class ProcessingActivity : AppCompatActivity() {
         }
         btn_notify.setOnClickListener {
 
-           Toast.makeText(this, "Sua notificação de erro foi enviada!", Toast.LENGTH_LONG)
+           Toast.makeText(this, "Sua notificação de erro foi enviada!", Toast.LENGTH_LONG).show()
 
         }
 
