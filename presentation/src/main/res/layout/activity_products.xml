@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
+        android:background="@color/colorPrimary"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent" android:layout_height="match_parent"
 >
@@ -10,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@color/colorPrimary"
+
             tools:context=".view.ProductsActivity">
 
         <!--Toolbar Produtos Disponíves-->
@@ -18,13 +19,13 @@
                       android:baselineAligned="false"
                       android:background="@drawable/bg_transparent_round"
                       android:gravity="center"
-                      android:paddingStart="8dp" android:paddinEndt="8dp"
+                      android:paddingStart="8dp" android:paddingEnd="8dp"
                       android:layout_marginTop="48dp"
-                      android:layout_marginLeft="24dp" android:layout_marginRight="24dp"
+                      android:layout_marginLeft="16dp" android:layout_marginRight="16dp"
                       android:orientation="horizontal">
 
             <ImageButton
-                    android:id="@+id/button_back_directscheduling"
+                    android:id="@+id/btn_back_products"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_marginTop="8dp"
@@ -86,6 +87,7 @@
                                     android:layout_height="0dp" android:layout_weight="2">
 
                                 <TextView
+                                        android:padding="8dp"
                                         android:paddingBottom="8dp"
                                         android:layout_width="wrap_content" android:layout_height="wrap_content"
                                         android:visibility="visible"
@@ -163,6 +165,7 @@
                                     android:layout_height="0dp" android:layout_weight="2">
 
                                 <TextView
+                                        android:padding="8dp"
                                         android:paddingBottom="8dp"
                                         android:layout_width="wrap_content" android:layout_height="wrap_content"
                                         android:visibility="visible"
@@ -239,6 +242,7 @@
                                     android:layout_height="0dp" android:layout_weight="2">
 
                                 <TextView
+                                        android:padding="8dp"
                                         android:paddingBottom="8dp"
                                         android:layout_width="wrap_content" android:layout_height="wrap_content"
                                         android:visibility="visible"
@@ -315,6 +319,7 @@
                                     android:layout_height="0dp" android:layout_weight="2">
 
                                 <TextView
+                                        android:padding="8dp"
                                         android:paddingBottom="8dp"
                                         android:layout_width="wrap_content" android:layout_height="wrap_content"
                                         android:visibility="visible"
@@ -470,11 +475,12 @@
         </LinearLayout>
 
         <!--Botão de confirmação-->
-        <Button android:layout_marginBottom="64dp"
+        <Button
+                android:id="@+id/btn_buy"
+                android:layout_marginBottom="64dp"
                 android:layout_width="match_parent" android:layout_height="@dimen/btn_height"
                 android:layout_marginEnd="@dimen/btn_margin"
                 android:layout_marginStart="@dimen/btn_margin"
-                android:id="@+id/btn_scan"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/bg_gradient"
                 android:padding="@dimen/btn_padding" android:paddingStart="40dp" android:paddingEnd="16dp"

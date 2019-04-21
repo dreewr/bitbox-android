@@ -13,13 +13,13 @@
                   android:baselineAligned="false"
                   android:background="@drawable/bg_transparent_round"
                   android:gravity="center"
-                  android:paddingStart="8dp" android:paddinEnd="8dp"
                   android:layout_marginTop="48dp"
-                  android:layout_marginLeft="24dp" android:layout_marginRight="24dp"
+                  android:layout_marginLeft="16dp" android:layout_marginRight="16dp"
                   android:orientation="horizontal">
 
         <ImageButton
-                android:id="@+id/button_back_directscheduling"
+                android:layout_marginStart="8dp"
+                android:id="@+id/btn_back_verification"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_marginTop="8dp"
@@ -27,13 +27,13 @@
                 android:background="@color/transparent"
                 android:src="@drawable/ic_arrow_left"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
 
                 android:layout_width="wrap_content" android:layout_height="40dp"
                 android:textStyle="bold"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
                 android:text="Verificação" android:gravity="center" android:textSize="16sp"
                 android:textColor="@color/white_text" android:layout_weight="4"/>
 
@@ -157,7 +157,7 @@
             android:layout_width="match_parent" android:layout_height="@dimen/btn_height"
             android:layout_marginEnd="@dimen/btn_margin"
             android:layout_marginStart="@dimen/btn_margin"
-            android:id="@+id/btn_scan"
+            android:id="@+id/btn_verifiy"
             android:layout_marginTop="32dp"
             android:background="@drawable/bg_gradient"
             android:padding="@dimen/btn_padding" android:paddingStart="40dp" android:paddingEnd="16dp"

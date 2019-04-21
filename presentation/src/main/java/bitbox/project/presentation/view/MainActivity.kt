@@ -1,6 +1,7 @@
 package bitbox.project.presentation.view
 
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
@@ -8,6 +9,7 @@ import bitbox.project.presentation.R
 import bitbox.project.presentation.viewmodel.MainViewModel
 import bitbox.project.presentation.viewmodel.ViewModelFactory
 import dagger.android.AndroidInjection
+import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -31,13 +33,16 @@ class MainActivity : AppCompatActivity() {
 
         initViewModel()
 
-
         mainViewModel.fetchBlock("13320")
-//
-        //mainViewModel.getBlock().observe(this, Observer<Resource<BlockResponse>>{ response ->
-//
-           //txt_simpletext.text = response?.data?.block?.hash
-       // })
+
+        btn_scan.setOnClickListener {
+
+            val intent = Intent(this, ProductsActivity::class.java)
+
+            startActivity(intent)
+
+        }
+
 
     }
 
