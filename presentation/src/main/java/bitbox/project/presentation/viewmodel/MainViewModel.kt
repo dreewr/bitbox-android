@@ -36,6 +36,11 @@ open class MainViewModel @Inject internal constructor(
         super.onCleared()
     }
 
+    fun clear(){
+
+        blockResponse.postValue(Resource(ResourceState.ERROR, null, null))
+
+    }
     fun getBlock(): LiveData<Resource<BlockResponse>> {
         return blockResponse
     }

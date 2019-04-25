@@ -4,8 +4,8 @@ package bitbox.project.presentation.injection.module
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import bitbox.project.domain.executor.PostExecutionThread
-import bitbox.project.presentation.view.MainActivity
 import bitbox.project.presentation.UiThread
+import bitbox.project.presentation.view.*
 import bitbox.project.presentation.viewmodel.MainViewModel
 import bitbox.project.presentation.viewmodel.ViewModelFactory
 import dagger.Binds
@@ -35,6 +35,18 @@ abstract class PresentationModule{
     //Injecting the Activity using dagger-android
     @ContributesAndroidInjector
     abstract fun contributesMainActivity(): MainActivity
+
+    @ContributesAndroidInjector
+    abstract fun contributesLoginActivity(): LoginActivity
+
+    @ContributesAndroidInjector
+    abstract fun contributesProcessingActivity(): ProcessingActivity
+
+    @ContributesAndroidInjector
+    abstract fun contributesProductsActivity(): ProductsActivity
+
+    @ContributesAndroidInjector
+    abstract fun contributesVerificationActivity(): VerificationActivity
 
     //「View Model」
 

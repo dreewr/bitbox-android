@@ -72,82 +72,83 @@
                         android:layout_width="match_parent" android:layout_height="64dp"
                         android:background="@drawable/bg_round_white"
                         android:gravity="center"
-                        android:imeOptions="actionNext"
-                        android:inputType="textPassword"
-                        android:maxLength="1"
-                        android:maxLines="1"
-                        android:alpha="0.9"
-                        android:singleLine="true"
-                        android:textColor="@color/icons"
-                        tools:text="4"/>
-            </LinearLayout>
-
-            <LinearLayout
-                    android:layout_margin="2dp"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:layout_weight="1">
-
-                <EditText
-                        android:textSize="24sp"
-                        android:id="@+id/et_pin_2"
-                        android:layout_width="match_parent" android:layout_height="64dp"
-                        android:background="@drawable/bg_round_white"
-                        android:gravity="center"
-                        android:imeOptions="actionNext"
-                        android:inputType="textPassword"
-                        android:maxLength="1"
-                        android:maxLines="1"
-                        android:alpha="0.9"
-                        android:singleLine="true"
-                        android:textColor="@color/icons"
-                        tools:text="4"/>
-
-            </LinearLayout>
-            <LinearLayout
-                    android:layout_margin="2dp"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:layout_weight="1">
-
-                <EditText
-                        android:textSize="24sp"
-                        android:id="@+id/et_pin_3"
-                        android:layout_width="match_parent" android:layout_height="64dp"
-                        android:background="@drawable/bg_round_white"
-                        android:gravity="center"
-                        android:imeOptions="actionNext"
-                        android:inputType="textPassword"
-                        android:maxLength="1"
-                        android:maxLines="1"
-                        android:alpha="0.9"
-                        android:singleLine="true"
-                        android:textColor="@color/icons"
-                        tools:text="4"/>
-
-            </LinearLayout>
-            <LinearLayout
-                    android:layout_margin="2dp"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:layout_weight="1">
-
-                <EditText
-                        android:textSize="24sp"
-                        android:id="@+id/et_pin_4"
-                        android:layout_width="match_parent" android:layout_height="64dp"
-                        android:background="@drawable/bg_round_white"
-                        android:gravity="center"
                         android:imeOptions="actionDone"
                         android:inputType="textPassword"
-                        android:maxLength="1"
+                        android:letterSpacing="1.0"
+                        android:maxLength="4"
                         android:maxLines="1"
                         android:alpha="0.9"
                         android:singleLine="true"
                         android:textColor="@color/icons"
-                        tools:text="4"/>
-
+                        tools:text="4356"/>
             </LinearLayout>
+
+            <!--<LinearLayout-->
+                    <!--android:layout_margin="2dp"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent" android:layout_weight="1">-->
+
+                <!--<EditText-->
+                        <!--android:textSize="24sp"-->
+                        <!--android:id="@+id/et_pin_2"-->
+                        <!--android:layout_width="match_parent" android:layout_height="64dp"-->
+                        <!--android:background="@drawable/bg_round_white"-->
+                        <!--android:gravity="center"-->
+                        <!--android:imeOptions="actionNext"-->
+                        <!--android:inputType="textPassword"-->
+                        <!--android:maxLength="1"-->
+                        <!--android:maxLines="1"-->
+                        <!--android:alpha="0.9"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:textColor="@color/icons"-->
+                        <!--tools:text="4"/>-->
+
+            <!--</LinearLayout>-->
+            <!--<LinearLayout-->
+                    <!--android:layout_margin="2dp"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent" android:layout_weight="1">-->
+
+                <!--<EditText-->
+                        <!--android:textSize="24sp"-->
+                        <!--android:id="@+id/et_pin_3"-->
+                        <!--android:layout_width="match_parent" android:layout_height="64dp"-->
+                        <!--android:background="@drawable/bg_round_white"-->
+                        <!--android:gravity="center"-->
+                        <!--android:imeOptions="actionNext"-->
+                        <!--android:inputType="textPassword"-->
+                        <!--android:maxLength="1"-->
+                        <!--android:maxLines="1"-->
+                        <!--android:alpha="0.9"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:textColor="@color/icons"-->
+                        <!--tools:text="4"/>-->
+
+            <!--</LinearLayout>-->
+            <!--<LinearLayout-->
+                    <!--android:layout_margin="2dp"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent" android:layout_weight="1">-->
+
+                <!--<EditText-->
+                        <!--android:textSize="24sp"-->
+                        <!--android:id="@+id/et_pin_4"-->
+                        <!--android:layout_width="match_parent" android:layout_height="64dp"-->
+                        <!--android:background="@drawable/bg_round_white"-->
+                        <!--android:gravity="center"-->
+                        <!--android:imeOptions="actionDone"-->
+                        <!--android:inputType="textPassword"-->
+                        <!--android:maxLength="1"-->
+                        <!--android:maxLines="1"-->
+                        <!--android:alpha="0.9"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:textColor="@color/icons"-->
+                        <!--tools:text="4"/>-->
+
+            <!--</LinearLayout>-->
 
 
         </LinearLayout>
@@ -157,14 +158,24 @@
             android:layout_width="match_parent" android:layout_height="@dimen/btn_height"
             android:layout_marginEnd="@dimen/btn_margin"
             android:layout_marginStart="@dimen/btn_margin"
-            android:id="@+id/btn_verifiy"
+            android:id="@+id/btn_verify"
             android:layout_marginTop="32dp"
             android:background="@drawable/bg_gradient"
             android:padding="@dimen/btn_padding" android:paddingStart="40dp" android:paddingEnd="16dp"
+            android:visibility="gone"
             android:text="Finalizar Compra"
             android:textStyle="bold"
             android:textColor="@color/icons"
             android:drawablePadding="8dp"
             android:drawableEnd="@drawable/ic_check_black_24dp"/>
+
+    <ProgressBar
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="64dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/pgs_verify"
+            tools:visibility="visible"
+            android:visibility="gone"
+            android:layout_width="wrap_content" android:layout_height="@dimen/btn_height"/>
 
 </LinearLayout>

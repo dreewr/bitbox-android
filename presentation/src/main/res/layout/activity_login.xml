@@ -29,7 +29,7 @@
 
     <EditText
             android:textSize="14sp"
-            android:id="@+id/et_username"
+            android:id="@+id/et_username_login"
             android:layout_width="match_parent" android:layout_height="@dimen/btn_height"
             android:layout_marginEnd="@dimen/btn_margin"
             android:layout_marginStart="@dimen/btn_margin"
@@ -41,7 +41,7 @@
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
             android:maxLines="1"
-            android:nextFocusForward="@+id/et_password"
+            android:nextFocusForward="@+id/et_password_login"
             android:paddingLeft="24dp"
 
             android:paddingTop="12dp"
@@ -51,7 +51,7 @@
 
     <EditText
             android:textSize="14sp"
-            android:id="@+id/et_password"
+            android:id="@+id/et_password_login"
             android:layout_width="match_parent" android:layout_height="@dimen/btn_height"
             android:layout_marginEnd="@dimen/btn_margin"
             android:layout_marginStart="@dimen/btn_margin"

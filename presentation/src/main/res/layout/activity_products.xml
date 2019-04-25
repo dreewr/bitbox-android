@@ -58,11 +58,13 @@
                     android:layout_height="match_parent" android:layout_weight="1"
                     android:padding="8dp"
             >
+
+                <!--PRODUTO 1-->
                 <LinearLayout
+                        android:id="@+id/btn_product1"
                         android:layout_margin="2dp"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
-
                         tools:background="@color/transparent"
                         android:layout_height="match_parent" android:layout_weight="1">
 
@@ -137,11 +139,12 @@
 
                 </LinearLayout>
 
+                <!--PRODUTO 2-->
                 <LinearLayout
+                        android:id="@+id/btn_product2"
                         android:layout_margin="2dp"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:background="@drawable/bg_gradient"
                         android:layout_height="match_parent" android:layout_weight="1">
 
                     <LinearLayout
@@ -214,7 +217,10 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
+                <!--PRODUTO 3-->
                 <LinearLayout
+                        android:id="@+id/btn_product3"
                         android:layout_margin="2dp"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
@@ -291,11 +297,13 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
+                <!--PRODUTO 4-->
                 <LinearLayout
+                        android:id="@+id/btn_product4"
                         android:layout_margin="2dp"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
-
                         android:layout_height="match_parent" android:layout_weight="1">
 
                     <LinearLayout
@@ -409,7 +417,9 @@
                         android:layout_weight="1"/>
             </LinearLayout>
             <LinearLayout
+                    android:id="@+id/view_purchaseresult"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                 <LinearLayout
@@ -464,7 +474,7 @@
                     <TextView
 
                             android:layout_width="0dp" android:layout_height="40dp"
-                            android:visibility="visible"
+                            android:visibility="gone"
                             android:layout_marginStart="16dp"
                             android:layout_marginEnd="16dp"
                             android:text="Mensagem de erro" android:gravity="center" android:textSize="16sp"
@@ -477,6 +487,8 @@
         <!--Botão de confirmação-->
         <Button
                 android:id="@+id/btn_buy"
+                tools:visibility="visible"
+                android:visibility="gone"
                 android:layout_marginBottom="64dp"
                 android:layout_width="match_parent" android:layout_height="@dimen/btn_height"
                 android:layout_marginEnd="@dimen/btn_margin"
