@@ -24,6 +24,8 @@ import javax.inject.Inject
 
 class ProductsActivity : AppCompatActivity() {
 
+    //todo: esc
+    // rever sobre as libraries
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     lateinit var mainViewModel: MainViewModel
@@ -47,7 +49,11 @@ class ProductsActivity : AppCompatActivity() {
 
         btn_buy.setOnClickListener {
 
-            mainViewModel.fetchBlock("13320")
+           // mainViewModel.fetchBlock("13320")
+
+            val intent = Intent(this, VerificationActivity::class.java)
+            Log.i("ProductsActivity", "Entrou aqui")
+            startActivity(intent)
 
         }
 
@@ -75,9 +81,9 @@ class ProductsActivity : AppCompatActivity() {
 
             isProductSelected = true
 
-            btn_buy.visibility = VISIBLE
             view_purchaseresult.visibility = VISIBLE
 
+            enableBuyButton()
         }
 
         btn_product2.setOnClickListener {
@@ -90,7 +96,8 @@ class ProductsActivity : AppCompatActivity() {
             isProductSelected = true
 
             view_purchaseresult.visibility = VISIBLE
-            btn_buy.visibility = VISIBLE
+            enableBuyButton()
+
 
         }
 
@@ -101,9 +108,9 @@ class ProductsActivity : AppCompatActivity() {
             btn_product4.setBackgroundResource(R.color.transparent)
 
             isProductSelected = true
-
+            enableBuyButton()
             view_purchaseresult.visibility = VISIBLE
-            btn_buy.visibility = VISIBLE
+
         }
 
         btn_product4.setOnClickListener {
@@ -115,10 +122,16 @@ class ProductsActivity : AppCompatActivity() {
             isProductSelected = true
 
             view_purchaseresult.visibility = VISIBLE
-            btn_buy.visibility = VISIBLE
+
+            enableBuyButton()
 
         }
 
+    }
+
+    private fun enableBuyButton(){
+        btn_buy.alpha = 1f
+        btn_buy.isClickable = true
     }
 
     private fun handleDataState(resource: Resource<BlockResponse>) {
@@ -129,18 +142,18 @@ class ProductsActivity : AppCompatActivity() {
                 Log.i("ProductsActivity", "Entrou aqui")
                 startActivity(intent)
 
-                pgs_buy.visibility = GONE
-                btn_buy.visibility = VISIBLE
+                //pgs_buy.visibility = GONE
+                //btn_buy.visibility = VISIBLE
             }
 
             ResourceState.LOADING -> {
-                pgs_buy.visibility = VISIBLE
+               // pgs_buy.visibility = VISIBLE
                 btn_buy.visibility = View.GONE
 
             }
             ResourceState.ERROR -> {
 
-                pgs_buy.visibility = GONE
+                //pgs_buy.visibility = GONE
                 btn_buy.visibility = VISIBLE
 
             }

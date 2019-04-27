@@ -57,7 +57,6 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-
     private fun handleDataState(resource: Resource<BlockResponse>) {
         when (resource.status) {
             ResourceState.SUCCESS -> {
