@@ -3,22 +3,22 @@ package bitbox.project.presentation.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.TransactionTooLargeException
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import bitbox.project.domain.model.BlockResponse
+import bitbox.project.domain.model.transaction.Transaction
+import bitbox.project.domain.model.transaction.TransactionResponse
 import bitbox.project.presentation.R
 import bitbox.project.presentation.state.Resource
 import bitbox.project.presentation.state.ResourceState
 import bitbox.project.presentation.viewmodel.MainViewModel
 import bitbox.project.presentation.viewmodel.ViewModelFactory
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_products.*
 import kotlinx.android.synthetic.main.activity_verification.*
 import javax.inject.Inject
 
@@ -38,14 +38,14 @@ class VerificationActivity : AppCompatActivity() {
 
         initViews()
 
-        mainViewModel.getBlock().observe(this, Observer<Resource<BlockResponse>> { response ->
+        mainViewModel.getTransactionResponse().observe(this, Observer<Resource<TransactionResponse>> { response ->
 
             handleDataState(response)
         })
 
         btn_verify.setOnClickListener {
 
-            mainViewModel.fetchBlock("13320")
+            mainViewModel.createTransaction(Transaction(1,0,1,1,1))
         }
 
         btn_back_verification.setOnClickListener {
@@ -59,14 +59,14 @@ class VerificationActivity : AppCompatActivity() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (p0?.length == 4) btn_verify.visibility = VISIBLE
-                else btn_verify.visibility = GONE
+                if (p0?.length == 4) enableVerifyButton(true)
+                else enableVerifyButton(false)
             }
         })
     }
 
 
-    private fun handleDataState(resource: Resource<BlockResponse>) {
+    private fun handleDataState(resource: Resource<TransactionResponse>) {
         when (resource.status) {
             ResourceState.SUCCESS -> {
 
@@ -91,16 +91,27 @@ class VerificationActivity : AppCompatActivity() {
         }
     }
 
-    fun initViewModel(){
+    fun initViewModel() {
         mainViewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(MainViewModel::class.java)
     }
 
-    fun initViews(){
-
+    fun initViews() {
 
 
     }
+
+    private fun enableVerifyButton(enabled: Boolean) {
+        if (enabled) {
+            btn_verify.alpha = 1f
+            btn_verify.isClickable = true
+        } else {
+            btn_verify.alpha = 0.6f
+            btn_verify.isClickable = false
+        }
+
+    }
+
 
     override fun onBackPressed() {
         super.onBackPressed()

@@ -10,7 +10,6 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import bitbox.project.domain.model.BlockResponse
 import bitbox.project.presentation.R
 import bitbox.project.presentation.state.Resource
 import bitbox.project.presentation.state.ResourceState
@@ -38,14 +37,22 @@ class LoginActivity : AppCompatActivity() {
 
         initViewModel()
 
-        mainViewModel.getBlock().observe(this, Observer<Resource<BlockResponse>> { response ->
 
-            handleDataState(response)
-        })
+        //et_username_login.text =
+        //et_password_login.text =
+
+//        mainViewModel.getTransactionResponse().observe(this, Observer<Resource<BlockResponse>> { response ->
+//
+//            handleDataState(response)
+//        })
 
         btn_login.setOnClickListener {
 
-            mainViewModel.fetchBlock("13320")
+           // mainViewModel.createTransaction("13320")
+
+            val intent = Intent(this, MainActivity::class.java)
+            Log.i("LoginActivity", "Entrou aqui")
+            startActivity(intent)
 
         }
 
@@ -57,7 +64,7 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun handleDataState(resource: Resource<BlockResponse>) {
+    private fun handleDataState(resource: Resource<String>) {
         when (resource.status) {
             ResourceState.SUCCESS -> {
 

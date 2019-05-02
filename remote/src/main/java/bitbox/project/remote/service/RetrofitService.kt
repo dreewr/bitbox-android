@@ -2,8 +2,11 @@ package bitbox.projec.remote.service
 
 
 import io.reactivex.Observable
-import bitbox.project.domain.model.BlockResponse
+import bitbox.project.domain.model.transaction.Transaction
+import bitbox.project.domain.model.transaction.TransactionResponse
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 
@@ -17,8 +20,14 @@ import retrofit2.http.Path
 
 interface RetrofitService {
 
-    @GET("block/{blockHash}")
-    fun getBlock(@Path("blockHash") blockHash: String)
-            : Observable<BlockResponse>
+
+    //Endpoints de integração
+    @POST("transacoes")
+    fun createTransaction(@Body newTransaction: Transaction)
+            : Observable<TransactionResponse>
+
+    @GET("transacoes/{transactionID}")
+    fun getTransaction(@Path("transactionID") transactionID: String)
+            : Observable<Transaction>
 
 }

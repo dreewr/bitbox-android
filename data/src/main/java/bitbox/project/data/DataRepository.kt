@@ -3,7 +3,8 @@ package bitbox.project.data
 import bitbox.project.data.store.DataStoreFactory
 import io.reactivex.Observable
 import bitbox.project.domain.Repository
-import bitbox.project.domain.model.BlockResponse
+import bitbox.project.domain.model.transaction.Transaction
+import bitbox.project.domain.model.transaction.TransactionResponse
 import javax.inject.Inject
 
 /**
@@ -20,10 +21,9 @@ class DataRepository @Inject constructor(
         private val factory: DataStoreFactory
 )
     : Repository {
+    override fun createTransaction(newTransaction: Transaction): Observable<TransactionResponse> {
 
-    override fun getBlock(blockHash: String): Observable<BlockResponse> {
-        //TODO:
-        return factory.getDataStore().getBlock(blockHash)
+        return factory.getDataStore().createTransaction(newTransaction)
     }
 
 }

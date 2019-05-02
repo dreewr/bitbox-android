@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="@color/colorPrimary" android:layout_height="match_parent"
         android:layout_width="match_parent">
 
@@ -19,7 +19,7 @@
                 tools:context=".view.ProcessingActivity"
         >
 
-            <!--Toolbar de acompanhamento-->
+            <!--Toolbar Processing-->
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:baselineAligned="false"
                           android:background="@drawable/bg_transparent_round"
@@ -111,34 +111,43 @@
                 <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"/>
                 <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"/>
 
-                <Button
-                        android:id="@+id/btn_rebuy_processing"
-                        android:layout_width="match_parent" android:layout_height="@dimen/btn_height"
-                        android:layout_marginTop="24dp"
-                        android:background="@drawable/bg_gradient"
-                        android:padding="@dimen/btn_padding" android:paddingStart="40dp" android:paddingEnd="24dp"
-                        android:text="Comprar novamente"
-                        android:textStyle="bold"
-                        android:textColor="@color/icons"
-                        android:drawablePadding="8dp"
-                        android:drawableEnd="@drawable/ic_qr_code"/>
-
-                <Button
-                        android:layout_width="match_parent" android:layout_height="@dimen/btn_height"
-                        android:id="@+id/btn_notify_processing"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/bg_gradient"
-                        android:padding="@dimen/btn_padding" android:paddingStart="40dp" android:paddingEnd="24dp"
-                        android:text="Notificar erro"
-                        android:textStyle="bold"
-                        android:textColor="@color/icons"
-                        android:drawablePadding="8dp"
-                        android:drawableEnd="@drawable/ic_qr_code"/>
-
-
             </LinearLayout>
 
 
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+
+    <LinearLayout
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="56dp"
+            android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <Button
+                android:id="@+id/btn_rebuy_processing"
+                android:layout_width="match_parent" android:layout_height="@dimen/btn_height"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/bg_gradient"
+                android:padding="@dimen/btn_padding" android:paddingStart="40dp" android:paddingEnd="24dp"
+                android:text="Comprar novamente"
+                android:textStyle="bold"
+                android:textColor="@color/icons"
+                android:drawablePadding="8dp"
+                android:drawableEnd="@drawable/ic_qr_code"/>
+
+        <Button
+
+                android:layout_width="match_parent" android:layout_height="@dimen/btn_height"
+                android:id="@+id/btn_notify_processing"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_gradient"
+                android:padding="@dimen/btn_padding" android:paddingStart="40dp" android:paddingEnd="24dp"
+                android:text="Notificar erro"
+                android:textStyle="bold"
+                android:textColor="@color/icons"
+                android:drawablePadding="8dp"
+                android:drawableEnd="@drawable/ic_qr_code"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

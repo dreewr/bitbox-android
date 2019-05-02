@@ -3,7 +3,7 @@
     <string name="processing_firstmessage_loading">Aguarde enquanto sua compra é processada...</string>
     <string name="processing_firstmessage_success">Sua compra foi processada com sucesso!</string>
     <string name="processing_secondmessage_loading">Aguarde o recebimento do seu produto...</string>
-    <string name="processing_secondmessage_success">Sua compra goi concluída com sucesso!</string>
+    <string name="processing_secondmessage_success">Sua compra foi concluída com sucesso!</string>
     <string name="processing_error">Houve algum erro na sua compra. Tente novamente mais tarde</string>
 
 </resources>

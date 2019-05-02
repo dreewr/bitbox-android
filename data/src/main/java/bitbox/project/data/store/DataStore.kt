@@ -1,7 +1,9 @@
 package bitbox.project.data.store
 
 import io.reactivex.Observable
-import bitbox.project.domain.model.BlockResponse
+
+import bitbox.project.domain.model.transaction.Transaction
+import bitbox.project.domain.model.transaction.TransactionResponse
 
 /**
  * Created by André Santos
@@ -14,6 +16,6 @@ import bitbox.project.domain.model.BlockResponse
 
 interface DataStore{
 
-    fun getBlock(blockHash : String): Observable<BlockResponse>
+    fun createTransaction(newTransaction : Transaction): Observable<TransactionResponse>
 
 }

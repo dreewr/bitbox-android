@@ -3,14 +3,13 @@ package bitbox.project.presentation.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import bitbox.project.domain.model.BlockResponse
+import bitbox.project.domain.model.transaction.Transaction
+import bitbox.project.domain.model.transaction.TransactionResponse
 import bitbox.project.presentation.R
 import bitbox.project.presentation.state.Resource
 import bitbox.project.presentation.state.ResourceState
@@ -18,7 +17,6 @@ import bitbox.project.presentation.viewmodel.MainViewModel
 import bitbox.project.presentation.viewmodel.ViewModelFactory
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_processing.*
-import kotlinx.android.synthetic.main.activity_verification.*
 import javax.inject.Inject
 
 //
@@ -55,23 +53,29 @@ class ProcessingActivity : AppCompatActivity() {
 
     fun startProcessing(){
 
-        mainViewModel.fetchBlock("13320")
+        mainViewModel.createTransaction(Transaction(1, 0, 1, 1, 1, null, null))
 
-        mainViewModel.getBlock().observe(this, Observer<Resource<BlockResponse>> { response ->
+        mainViewModel.getTransactionResponse().observe(this, Observer<Resource<TransactionResponse>> { response ->
 
             if (!IS_PURCHASE_COMPLETED) handlePurchaseResponse(response)
             else if (!IS_PRODUCT_DELIVERED) handleDeliveryResponse(response)
+
         })
 
 
     }
 
-    private fun handlePurchaseResponse(resource: Resource<BlockResponse>) {
+    private fun handlePurchaseResponse(resource: Resource<TransactionResponse>) {
         when (resource.status) {
             ResourceState.SUCCESS -> {
                 IS_PURCHASE_COMPLETED = true
 
+                txt_firstmessage_processing.let {
+                    it.visibility = VISIBLE
+                    it.setText(R.string.processing_secondmessage_success)
+                }
 
+                mainViewModel.createTransaction(Transaction(1, 0, 1, 1, 1))
             }
 
             ResourceState.LOADING -> {
@@ -85,7 +89,7 @@ class ProcessingActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleDeliveryResponse(resource: Resource<BlockResponse>) {
+    private fun handleDeliveryResponse(resource: Resource<TransactionResponse>) {
         when (resource.status) {
             ResourceState.SUCCESS -> {
                IS_PRODUCT_DELIVERED = true
@@ -173,6 +177,7 @@ class ProcessingActivity : AppCompatActivity() {
         txt_secondmessage_processing.visibility = GONE
         txt_firstmessage_processing.setText(R.string.processing_secondmessage_loading)
         txt_errormessage_processing.setText(R.string.processing_error)
+        txt_errormessage_processing.visibility = GONE
         pgs_processing.visibility = VISIBLE
         btn_notify_processing.alpha = 0.8f
         btn_notify_processing.isClickable = false

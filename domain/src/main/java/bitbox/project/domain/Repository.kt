@@ -1,6 +1,7 @@
 package bitbox.project.domain
 
-import bitbox.project.domain.model.BlockResponse
+import bitbox.project.domain.model.transaction.Transaction
+import bitbox.project.domain.model.transaction.TransactionResponse
 import io.reactivex.Observable
 
 
@@ -16,6 +17,7 @@ import io.reactivex.Observable
 
 interface Repository{
 
-    fun getBlock(blockHash : String): Observable<BlockResponse>
+    fun createTransaction(newTransaction : Transaction): Observable<TransactionResponse>
+
 
 }

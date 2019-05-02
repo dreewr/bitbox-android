@@ -22,9 +22,9 @@ import java.util.concurrent.TimeUnit
  */
 
 object RetrofitServiceFactory {
-
-    val BASE_URL: String = "https://dogechain.info/api/v1/"
-    val AUTHORIZED_URL: String = ""
+    val BASE_URL: String = "https://aqueous-peak-23356.herokuapp.com/"
+    //val BASE_URL: String = "https://dogechain.info/api/v1/"
+   // val AUTHORIZED_URL: String = ""
 
 
     //TODO: Descobrir como

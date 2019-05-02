@@ -1,7 +1,9 @@
 package bitbox.project.data.repository
 
 import io.reactivex.Observable
-import bitbox.project.domain.model.BlockResponse
+
+import bitbox.project.domain.model.transaction.Transaction
+import bitbox.project.domain.model.transaction.TransactionResponse
 
 /**
  * Created by André Santos
@@ -12,6 +14,6 @@ import bitbox.project.domain.model.BlockResponse
 
 interface Remote {
 
-    fun getBlock(blockHash: String): Observable<BlockResponse>
+    fun createTransaction(newTransaction : Transaction): Observable<TransactionResponse>
 
 }

@@ -1,15 +1,15 @@
 package bitbox.project.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.observers.DisposableObserver
-import bitbox.project.domain.model.BlockResponse
+import bitbox.project.domain.model.transaction.Transaction
+import bitbox.project.domain.model.transaction.TransactionResponse
+import bitbox.project.domain.usecase.CreateTransaction
 
 import javax.inject.Inject
 
-import bitbox.project.domain.usecase.GetBlock
 import bitbox.project.presentation.state.Resource
 import bitbox.project.presentation.state.ResourceState
 
@@ -21,9 +21,9 @@ import bitbox.project.presentation.state.ResourceState
  * on 3/30/19.
  */
 open class MainViewModel @Inject internal constructor(
-        private val getBlock: GetBlock?): ViewModel() {
+        private val createTransaction: CreateTransaction?): ViewModel() {
 
-    private val blockResponse: MutableLiveData<Resource<BlockResponse>> = MutableLiveData()
+    private val transactionResponse: MutableLiveData<Resource<TransactionResponse>> = MutableLiveData()
 
 //    //código de inicialização
 //    init {
@@ -32,37 +32,31 @@ open class MainViewModel @Inject internal constructor(
 //    }
 
     override fun onCleared() {
-        getBlock?.dispose()
+       createTransaction?.dispose()
         super.onCleared()
     }
 
-    fun clear(){
-
-        blockResponse.postValue(Resource(ResourceState.ERROR, null, null))
-
-    }
-    fun getBlock(): LiveData<Resource<BlockResponse>> {
-        return blockResponse
+    fun getTransactionResponse(): LiveData<Resource<TransactionResponse>> {
+        return transactionResponse
     }
 
-    fun fetchBlock(blockHash: String) {
-        blockResponse.postValue(Resource(ResourceState.LOADING, null, null))
+    fun createTransaction(newTransaction : Transaction) {
+        transactionResponse.postValue(Resource(ResourceState.LOADING, null, null))
         //Peço pro caso de uso ser executado passando como parâmetro uma instância da classe interna
 
-        getBlock?.execute(BlockSubscriber(),
-                GetBlock.Params.forBlock(blockHash))
+       createTransaction?.execute(TransactionSubscriber(),
+               CreateTransaction.Params.forBlock(newTransaction))
     }
 
-    inner class BlockSubscriber: DisposableObserver<BlockResponse>() {
-        override fun onNext(response: BlockResponse) {
-            blockResponse.postValue(Resource(ResourceState.SUCCESS,
-                   response, null))
-        }
+    inner class TransactionSubscriber: DisposableObserver<TransactionResponse>() {
+        override fun onNext(response: TransactionResponse) {
+            transactionResponse.postValue(Resource(ResourceState.SUCCESS,
+                   response, null))}
 
         override fun onComplete() { }
 
         override fun onError(e: Throwable) {
-            blockResponse.postValue(Resource(ResourceState.ERROR, null, e.localizedMessage))
+            transactionResponse.postValue(Resource(ResourceState.ERROR, null, e.localizedMessage))
         }
 
     }

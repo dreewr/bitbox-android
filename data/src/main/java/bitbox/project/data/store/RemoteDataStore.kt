@@ -1,8 +1,9 @@
 package bitbox.project.data.store
 
-import bitbox.project.domain.model.BlockResponse
 import io.reactivex.Observable
 import bitbox.project.data.repository.Remote
+import bitbox.project.domain.model.transaction.Transaction
+import bitbox.project.domain.model.transaction.TransactionResponse
 import javax.inject.Inject
 
 
@@ -16,9 +17,10 @@ import javax.inject.Inject
 open class RemoteDataStore @Inject constructor(
         private val remote: Remote)
     : DataStore {
-
-    override fun getBlock(blockHash : String): Observable<BlockResponse> {
-        return remote.getBlock(blockHash)
+    override fun createTransaction(newTransaction: Transaction): Observable<TransactionResponse> {
+        return remote.createTransaction(newTransaction)
     }
+
+
 
 }

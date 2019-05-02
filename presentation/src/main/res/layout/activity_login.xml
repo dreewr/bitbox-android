@@ -88,5 +88,10 @@
                  android:visibility="gone"
                  android:layout_width="wrap_content" android:layout_height="@dimen/btn_height"/>
 
+    <TextView
+            android:textColor="@color/secondary_text"
+            android:layout_marginTop="96dp" android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="v0.0.7"
+    android:gravity="bottom"/>
 
 </LinearLayout>

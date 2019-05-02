@@ -515,8 +515,10 @@
             android:drawablePadding="8dp"
             android:layout_marginBottom="56dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:drawableEnd="@drawable/ic_bitcoin" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:drawableEnd="@drawable/ic_bitcoin"
+            android:layout_marginStart="8dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

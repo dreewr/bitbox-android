@@ -5,21 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import bitbox.project.domain.model.BlockResponse
+import bitbox.project.domain.model.transaction.TransactionResponse
 import bitbox.project.presentation.R
 import bitbox.project.presentation.state.Resource
 import bitbox.project.presentation.state.ResourceState
 import bitbox.project.presentation.viewmodel.MainViewModel
 import bitbox.project.presentation.viewmodel.ViewModelFactory
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_processing.*
 import kotlinx.android.synthetic.main.activity_products.*
-import kotlinx.android.synthetic.main.activity_products.view.*
 import javax.inject.Inject
 
 class ProductsActivity : AppCompatActivity() {
@@ -42,14 +38,14 @@ class ProductsActivity : AppCompatActivity() {
 
         initViewModel()
 
-        mainViewModel.getBlock().observe(this, Observer<Resource<BlockResponse>> { response ->
+        mainViewModel.getTransactionResponse().observe(this, Observer<Resource<TransactionResponse>> { response ->
 
             handleDataState(response)
         })
 
         btn_buy.setOnClickListener {
 
-           // mainViewModel.fetchBlock("13320")
+           // mainViewModel.createTransaction("13320")
 
             val intent = Intent(this, VerificationActivity::class.java)
             Log.i("ProductsActivity", "Entrou aqui")
@@ -134,7 +130,7 @@ class ProductsActivity : AppCompatActivity() {
         btn_buy.isClickable = true
     }
 
-    private fun handleDataState(resource: Resource<BlockResponse>) {
+    private fun handleDataState(resource: Resource<TransactionResponse>) {
         when (resource.status) {
             ResourceState.SUCCESS -> {
 
