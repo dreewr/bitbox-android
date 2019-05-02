@@ -45,7 +45,7 @@ class ProductsActivity : AppCompatActivity() {
 
         btn_buy.setOnClickListener {
 
-           // mainViewModel.createTransaction("13320")
+           // loginViewModel.createTransaction("13320")
 
             val intent = Intent(this, VerificationActivity::class.java)
             Log.i("ProductsActivity", "Entrou aqui")

@@ -1,4 +1,4 @@
-package bitbox.project.domain.model
+package bitbox.project.domain.model.user
 
 data class User(
     val erro: Int? = 0,

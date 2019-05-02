@@ -1,5 +1,6 @@
 package bitbox.project.data.store
 
+import bitbox.project.domain.model.user.User
 import io.reactivex.Observable
 
 import bitbox.project.domain.model.transaction.Transaction
@@ -17,5 +18,6 @@ import bitbox.project.domain.model.transaction.TransactionResponse
 interface DataStore{
 
     fun createTransaction(newTransaction : Transaction): Observable<TransactionResponse>
+    fun executeUserLogin(username: String, password: String): Observable<User>
 
 }

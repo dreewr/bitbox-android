@@ -3,8 +3,10 @@ package bitbox.projec.remote
 import io.reactivex.Observable
 import bitbox.projec.remote.service.RetrofitService
 import bitbox.project.data.repository.Remote
+import bitbox.project.domain.model.user.User
 import bitbox.project.domain.model.transaction.Transaction
 import bitbox.project.domain.model.transaction.TransactionResponse
+import bitbox.project.domain.model.user.UserAuth
 import javax.inject.Inject
 
 /**
@@ -18,6 +20,9 @@ import javax.inject.Inject
 
 class RemoteImpl @Inject constructor(
         private val service: RetrofitService) : Remote {
+    override fun executeUserLogin(username: String, password: String): Observable<User> {
+        return service.executeUserLogin(UserAuth(username, password))
+    }
 
     override fun createTransaction(newTransaction: Transaction): Observable<TransactionResponse> {
         return service.createTransaction(newTransaction)

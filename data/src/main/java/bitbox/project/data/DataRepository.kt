@@ -3,6 +3,7 @@ package bitbox.project.data
 import bitbox.project.data.store.DataStoreFactory
 import io.reactivex.Observable
 import bitbox.project.domain.Repository
+import bitbox.project.domain.model.user.User
 import bitbox.project.domain.model.transaction.Transaction
 import bitbox.project.domain.model.transaction.TransactionResponse
 import javax.inject.Inject
@@ -21,6 +22,10 @@ class DataRepository @Inject constructor(
         private val factory: DataStoreFactory
 )
     : Repository {
+    override fun executeUserLogin(username: String, password: String): Observable<User> {
+        return factory.getDataStore().executeUserLogin(username, password)
+    }
+
     override fun createTransaction(newTransaction: Transaction): Observable<TransactionResponse> {
 
         return factory.getDataStore().createTransaction(newTransaction)
