@@ -1,5 +1,6 @@
 package bitbox.project.domain
 
+import bitbox.project.domain.model.machine.BitboxItems
 import bitbox.project.domain.model.user.User
 import bitbox.project.domain.model.transaction.Transaction
 import bitbox.project.domain.model.transaction.TransactionResponse
@@ -18,6 +19,10 @@ import io.reactivex.Observable
 
 interface Repository{
 
-    fun createTransaction(newTransaction : Transaction): Observable<TransactionResponse>
     fun executeUserLogin(username: String, password: String): Observable<User>
+
+    fun getBitboxItems(bitboxID: String): Observable<BitboxItems>
+
+    fun createTransaction(newTransaction : Transaction): Observable<TransactionResponse>
+
 }

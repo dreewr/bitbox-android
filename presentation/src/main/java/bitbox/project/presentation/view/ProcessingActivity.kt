@@ -50,7 +50,6 @@ class ProcessingActivity : AppCompatActivity() {
 
     }
 
-
     fun startProcessing(){
 
         mainViewModel.createTransaction(Transaction(1, 0, 1, 1, 1, null, null))
@@ -61,7 +60,6 @@ class ProcessingActivity : AppCompatActivity() {
             else if (!IS_PRODUCT_DELIVERED) handleDeliveryResponse(response)
 
         })
-
 
     }
 

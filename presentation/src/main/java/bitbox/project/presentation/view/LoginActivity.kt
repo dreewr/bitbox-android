@@ -73,6 +73,11 @@ class LoginActivity : AppCompatActivity() {
 
                 if (user?.erro == 0) {
                     val intent = Intent(this, MainActivity::class.java)
+
+                    intent.putExtra("USER_ID", user.idUsuario)
+                    intent.putExtra("USER_SALDO", user.saldo)
+                    intent.putExtra("USER_NAME", et_username_login.text.toString())
+
                     startActivity(intent)
                     finish()
                 } else{

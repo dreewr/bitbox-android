@@ -2,6 +2,7 @@ package bitbox.project.data.store
 
 import io.reactivex.Observable
 import bitbox.project.data.repository.Remote
+import bitbox.project.domain.model.machine.BitboxItems
 import bitbox.project.domain.model.user.User
 import bitbox.project.domain.model.transaction.Transaction
 import bitbox.project.domain.model.transaction.TransactionResponse
@@ -18,6 +19,11 @@ import javax.inject.Inject
 open class RemoteDataStore @Inject constructor(
         private val remote: Remote)
     : DataStore {
+
+    override fun getBitboxItems(bitboxID: String): Observable<BitboxItems> {
+        return remote.getBitboxItems(bitboxID)
+    }
+
     override fun executeUserLogin(username: String, password: String): Observable<User> {
         return remote.executeUserLogin(username, password)
     }

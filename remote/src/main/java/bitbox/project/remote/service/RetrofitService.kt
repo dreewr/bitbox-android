@@ -1,6 +1,7 @@
 package bitbox.projec.remote.service
 
 
+import bitbox.project.domain.model.machine.BitboxItems
 import io.reactivex.Observable
 import bitbox.project.domain.model.transaction.Transaction
 import bitbox.project.domain.model.transaction.TransactionResponse
@@ -26,6 +27,10 @@ interface RetrofitService {
     @POST("login")
     fun executeUserLogin(@Body userAuth: UserAuth)
             : Observable<User>
+
+    @GET("itens/{bitboxID}")
+    fun getBitboxItems(@Path("bitboxID")bitboxID: String)
+            : Observable<BitboxItems>
 
     @POST("transacoes")
     fun createTransaction(@Body newTransaction: Transaction)

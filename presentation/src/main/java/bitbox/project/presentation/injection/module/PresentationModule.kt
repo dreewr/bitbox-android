@@ -8,6 +8,7 @@ import bitbox.project.presentation.UiThread
 import bitbox.project.presentation.view.*
 import bitbox.project.presentation.viewmodel.LoginViewModel
 import bitbox.project.presentation.viewmodel.MainViewModel
+import bitbox.project.presentation.viewmodel.ProductsViewModel
 import bitbox.project.presentation.viewmodel.ViewModelFactory
 import dagger.Binds
 import dagger.MapKey
@@ -63,6 +64,11 @@ abstract class PresentationModule{
     @IntoMap
     @ViewModelKey(LoginViewModel::class)
     abstract fun bindLoginViewModel(viewModel: LoginViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProductsViewModel::class)
+    abstract fun bindProductsViewModel(viewModel: ProductsViewModel): ViewModel
 
 }
 

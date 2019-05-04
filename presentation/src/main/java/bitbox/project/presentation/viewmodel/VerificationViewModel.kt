@@ -49,11 +49,11 @@
 //        blockResponse.postValue(Resource(ResourceState.LOADING, null, null))
 //        //Peço pro caso de uso ser executado passando como parâmetro uma instância da classe interna
 //
-//        getBlock?.execute(LoginSubscriber(),
+//        getBlock?.execute(BitboxItemsSubscriber(),
 //                GetBlock.Params.forBlock(blockHash))
 //    }
 //
-//    inner class LoginSubscriber: DisposableObserver<BlockResponse>() {
+//    inner class BitboxItemsSubscriber: DisposableObserver<BlockResponse>() {
 //        override fun onNext(response: BlockResponse) {
 //            blockResponse.postValue(Resource(ResourceState.SUCCESS,
 //                   response, null))
