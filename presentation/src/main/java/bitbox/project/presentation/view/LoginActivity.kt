@@ -1,11 +1,9 @@
 package bitbox.project.presentation.view
 
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableStringBuilder
-import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
@@ -72,15 +70,15 @@ class LoginActivity : AppCompatActivity() {
                 val user: User? = resource.data
 
                 if (user?.erro == 0) {
-                    val intent = Intent(this, MainActivity::class.java)
 
-                    intent.putExtra("USER_ID", user.idUsuario)
-                    intent.putExtra("USER_SALDO", user.saldo)
-                    intent.putExtra("USER_NAME", et_username_login.text.toString())
+                    MainActivity.getStartIntent(this).let {
+                            it.putExtra("USER_ID", user.idUsuario)
+                            it.putExtra("USER_SALDO", user.saldo)
+                        it.putExtra("USER_NAME", et_username_login.text.toString())
 
-                    startActivity(intent)
+                    }.run { startActivity(this) }
                     finish()
-                } else{
+                } else {
                     pgs_login.visibility = GONE
                     btn_login.visibility = VISIBLE
                     Toast.makeText(this, "Usuário ou senha incorretos!", Toast.LENGTH_SHORT).show()
@@ -95,7 +93,8 @@ class LoginActivity : AppCompatActivity() {
             ResourceState.ERROR -> {
 
                 Toast.makeText(
-                    this, "Houve um erro inesperado. Cheque sua conexão e tente novamente", Toast.LENGTH_SHORT).show()
+                    this, "Houve um erro inesperado. Cheque sua conexão e tente novamente", Toast.LENGTH_SHORT
+                ).show()
                 pgs_login.visibility = GONE
                 btn_login.visibility = VISIBLE
 

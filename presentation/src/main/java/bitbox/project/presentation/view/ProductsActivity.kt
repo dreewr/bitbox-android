@@ -1,23 +1,19 @@
 package bitbox.project.presentation.view
 
+import android.content.Context
 import android.content.Intent
-import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import bitbox.project.domain.model.machine.BitboxItems
-import bitbox.project.domain.model.transaction.TransactionResponse
 import bitbox.project.presentation.R
 import bitbox.project.presentation.state.Resource
 import bitbox.project.presentation.state.ResourceState
-import bitbox.project.presentation.viewmodel.MainViewModel
 import bitbox.project.presentation.viewmodel.ProductsViewModel
 import bitbox.project.presentation.viewmodel.ViewModelFactory
 import com.bumptech.glide.Glide
@@ -36,6 +32,11 @@ class ProductsActivity : AppCompatActivity() {
 
     var isProductSelected: Boolean = false
 
+    companion object {
+        fun getStartIntent(context : Context):Intent{
+            return Intent(context, ProductsActivity::class.java)
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_products)
@@ -54,6 +55,10 @@ class ProductsActivity : AppCompatActivity() {
         })
         productsViewModel.fetchBitboxItems("1")
 
+        initListeners()
+    }
+
+    fun initListeners(){
         btn_buy.setOnClickListener {
 
             val intent = Intent(this, VerificationActivity::class.java)
@@ -63,9 +68,14 @@ class ProductsActivity : AppCompatActivity() {
         }
 
         btn_back_products.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+
+            MainActivity.getStartIntent(this).let {
+                it.putExtra("USER_ID", intent.getIntExtra("USER_ID", 0))
+                it.putExtra("USER_SALDO", intent.getIntExtra("USER_SALDO", 0))
+                it.putExtra("USER_NAME", intent.getStringExtra("USER_NAME"))
+
+            }.run { startActivity(this)
+                finish()}
         }
     }
 
@@ -170,12 +180,17 @@ class ProductsActivity : AppCompatActivity() {
                 updateProductsView(resource.data)
             }
             ResourceState.LOADING -> {
-
-
+                pgs_product1.visibility = VISIBLE
+                pgs_product2.visibility = VISIBLE
+                pgs_product3.visibility = VISIBLE
+                pgs_product4.visibility = VISIBLE
             }
             ResourceState.ERROR -> {
                 Toast.makeText(this, "Houve um erro, tente novamente mais tarde", Toast.LENGTH_SHORT).show()
-
+                pgs_product1.visibility = GONE
+                pgs_product2.visibility = GONE
+                pgs_product3.visibility = GONE
+                pgs_product4.visibility = GONE
             }
         }
     }

@@ -1,6 +1,7 @@
 package bitbox.project.presentation.view
 
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -21,7 +22,11 @@ class MainActivity : AppCompatActivity() {
     lateinit var viewModelFactory: ViewModelFactory
     lateinit var mainViewModel: MainViewModel
 
-
+    companion object {
+        fun getStartIntent(context : Context):Intent{
+            return Intent(context, MainActivity::class.java)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,15 +36,22 @@ class MainActivity : AppCompatActivity() {
 
         initViews()
         initViewModel()
+        initListeners()
 
+    }
+
+    fun initListeners(){
         btn_scan.setOnClickListener {
 
-            val intent = Intent(this, ProductsActivity::class.java)
-            startActivity(intent)
+            ProductsActivity.getStartIntent(this).let {
+                it.putExtra("USER_ID", intent.getIntExtra("USER_ID", 0).toString())
+                it.putExtra("USER_SALDO", intent.getIntExtra("USER_SALDO", 0))
+                it.putExtra("USER_NAME", intent.getStringExtra("USER_NAME").toString())
+
+            }.run { startActivity(this) }
 
         }
     }
-
     fun initViews(){
 
         txt_saldo_main.text = intent.getIntExtra("USER_SALDO", 0).toString()
@@ -48,12 +60,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun initViewModel(){
-
         //passar o id pra esse cara aqui
         mainViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(MainViewModel::class.java)
 
     }
+
 
     override fun onBackPressed() {
         super.onBackPressed()
