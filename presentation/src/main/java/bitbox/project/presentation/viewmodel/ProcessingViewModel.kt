@@ -37,7 +37,7 @@ open class ProcessingViewModel @Inject internal constructor(
         return transactionResponse
     }
 
-    fun fectchTransaction(transactionID: String){
+    fun fetchTransaction(transactionID: String){
         transaction.postValue(Resource(ResourceState.LOADING, null, null))
         //Peço pro caso de uso ser executado passando como parâmetro uma instância da classe interna
 

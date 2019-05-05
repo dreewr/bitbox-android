@@ -30,8 +30,6 @@ abstract class RemoteModule {
         fun provideRetrofitService(): RetrofitService {
             return RetrofitServiceFactory.makeRetrofitService(isDebug = false)
         }
-
-
     }
 
     @Binds

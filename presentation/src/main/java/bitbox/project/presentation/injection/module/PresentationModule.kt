@@ -30,7 +30,6 @@ abstract class PresentationModule{
 
     @Binds
     abstract fun bindPostExecutionThread(uiThread: UiThread): PostExecutionThread
-
     //Injecting the Activity using dagger-android
     @ContributesAndroidInjector
     abstract fun contributesMainActivity(): MainActivity
@@ -72,10 +71,10 @@ abstract class PresentationModule{
     @ViewModelKey(ProcessingViewModel::class)
     abstract fun bindProcessingViewModel(viewModel: ProcessingViewModel): ViewModel
 
-//    @Binds
-//    @IntoMap
-//    @ViewModelKey(VerificationViewModel::class)
-//    abstract fun bindVerificationViewModel(viewModel: ProductsViewModel): ViewModel
+    @Binds
+    @IntoMap
+    @ViewModelKey(VerificationViewModel::class)
+    abstract fun bindVerificationViewModel(viewModel: ProductsViewModel): ViewModel
 
 }
 

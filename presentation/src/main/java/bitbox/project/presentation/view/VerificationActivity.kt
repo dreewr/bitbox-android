@@ -1,9 +1,9 @@
 package bitbox.project.presentation.view
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.TransactionTooLargeException
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -16,7 +16,7 @@ import bitbox.project.domain.model.transaction.TransactionResponse
 import bitbox.project.presentation.R
 import bitbox.project.presentation.state.Resource
 import bitbox.project.presentation.state.ResourceState
-import bitbox.project.presentation.viewmodel.MainViewModel
+import bitbox.project.presentation.viewmodel.ProcessingViewModel
 import bitbox.project.presentation.viewmodel.ViewModelFactory
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_verification.*
@@ -26,8 +26,13 @@ class VerificationActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    lateinit var mainViewModel: MainViewModel
+    lateinit var mainViewModel: ProcessingViewModel
 
+    companion object {
+        fun getStartIntent(context : Context):Intent{
+            return Intent(context, VerificationActivity::class.java)
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verification)
@@ -37,6 +42,8 @@ class VerificationActivity : AppCompatActivity() {
         initViewModel()
 
         initViews()
+
+        mainViewModel.fetchTransaction("33")
 
         mainViewModel.getTransactionResponse().observe(this, Observer<Resource<TransactionResponse>> { response ->
 
@@ -70,9 +77,15 @@ class VerificationActivity : AppCompatActivity() {
         when (resource.status) {
             ResourceState.SUCCESS -> {
 
-                val intent = Intent(this, ProcessingActivity::class.java)
-                Log.i("VerificationActivity   ", "Entrou aqui")
-                startActivity(intent)
+                ProcessingActivity.getStartIntent(this).let {
+                    it.putExtra("USER_ID", intent.getIntExtra("USER_ID", 0))
+                    it.putExtra("USER_SALDO", intent.getIntExtra("USER_SALDO", 0))
+                    it.putExtra("USER_NAME", intent.getStringExtra("USER_NAME").toString())
+
+                }.run { startActivity(this) }
+
+
+
                 pgs_verify.visibility = View.GONE
                 btn_verify.visibility = VISIBLE
             }
@@ -93,7 +106,7 @@ class VerificationActivity : AppCompatActivity() {
 
     fun initViewModel() {
         mainViewModel = ViewModelProviders.of(this, viewModelFactory)
-            .get(MainViewModel::class.java)
+            .get(ProcessingViewModel::class.java)
     }
 
     fun initViews() {

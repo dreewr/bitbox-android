@@ -1,5 +1,6 @@
 package bitbox.project.presentation.view
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,7 +14,6 @@ import bitbox.project.domain.model.transaction.TransactionResponse
 import bitbox.project.presentation.R
 import bitbox.project.presentation.state.Resource
 import bitbox.project.presentation.state.ResourceState
-import bitbox.project.presentation.viewmodel.MainViewModel
 import bitbox.project.presentation.viewmodel.ProcessingViewModel
 import bitbox.project.presentation.viewmodel.ViewModelFactory
 import dagger.android.AndroidInjection
@@ -35,6 +35,12 @@ class ProcessingActivity : AppCompatActivity() {
     var IS_PURCHASE_COMPLETED: Boolean = false
     var IS_PRODUCT_DELIVERED: Boolean = false
 
+    companion object {
+        fun getStartIntent(context : Context):Intent{
+            return Intent(context, ProcessingActivity::class.java)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_processing)
@@ -49,7 +55,7 @@ class ProcessingActivity : AppCompatActivity() {
 
         startProcessing()
 
-        processingViewModel.fectchTransaction("33")
+        processingViewModel.fetchTransaction("33")
 
     }
 
@@ -148,11 +154,15 @@ class ProcessingActivity : AppCompatActivity() {
 
     fun initListeners(){
 
+        //Rebuy --> Goes to Products
         btn_rebuy_processing.setOnClickListener {
 
-            val intent = Intent(this, ProductsActivity::class.java)
+            ProductsActivity.getStartIntent(this).let {
+                it.putExtra("USER_ID", intent.getIntExtra("USER_ID", 0))
+                it.putExtra("USER_SALDO", intent.getIntExtra("USER_SALDO", 0))
+                it.putExtra("USER_NAME", intent.getStringExtra("USER_NAME").toString())
 
-            startActivity(intent)
+            }.run { startActivity(this) }
 
             finish()
 
@@ -165,7 +175,13 @@ class ProcessingActivity : AppCompatActivity() {
         }
 
         btn_back_processing.setOnClickListener {
-            startActivity(Intent(this, ProductsActivity::class.java))
+
+            ProductsActivity.getStartIntent(this).let {
+                it.putExtra("USER_ID", intent.getIntExtra("USER_ID", 0))
+                it.putExtra("USER_SALDO", intent.getIntExtra("USER_SALDO", 0))
+                it.putExtra("USER_NAME", intent.getStringExtra("USER_NAME").toString())
+            }.run { startActivity(this) }
+
             finish()
         }
 
