@@ -21,22 +21,24 @@ open class ProductsViewModel @Inject internal constructor(
         private val getBitboxItems: GetBitboxItems?): ViewModel() {
 
     private val bitboxItems: MutableLiveData<Resource<BitboxItems>> = MutableLiveData()
-
-//    //código de inicialização
-//    init {
-//        Log.d("DEBUGANDO", "MainViewModel inicializado")
-//
-//    }
+    private val selectedProductPrice: MutableLiveData<Double> = MutableLiveData()
+    private val userBalance: MutableLiveData<Double> = MutableLiveData()
 
     override fun onCleared() {
         getBitboxItems?.dispose()
         super.onCleared()
     }
 
+    fun getUserBalance(): MutableLiveData<Double>{
+        return userBalance
+    }
+
+    fun getSelectedProductPrice(): MutableLiveData<Double>{
+        return selectedProductPrice
+    }
+
     fun clear(){
-
         bitboxItems.postValue(Resource(ResourceState.ERROR, null, null))
-
     }
     fun getBitboxItems(): LiveData<Resource<BitboxItems>> {
         return bitboxItems

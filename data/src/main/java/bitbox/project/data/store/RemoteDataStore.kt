@@ -19,6 +19,9 @@ import javax.inject.Inject
 open class RemoteDataStore @Inject constructor(
         private val remote: Remote)
     : DataStore {
+    override fun getTransaction(transactionID: String): Observable<Transaction> {
+        return remote.getTransaction(transactionID)
+    }
 
     override fun getBitboxItems(bitboxID: String): Observable<BitboxItems> {
         return remote.getBitboxItems(bitboxID)

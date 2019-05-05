@@ -16,6 +16,7 @@ import bitbox.project.domain.model.transaction.TransactionResponse
 
 interface Remote {
 
+    fun getTransaction(transactionID : String): Observable<Transaction>
     fun createTransaction(newTransaction : Transaction): Observable<TransactionResponse>
     fun getBitboxItems(bitboxID: String): Observable<BitboxItems>
     fun executeUserLogin(username: String, password: String): Observable<User>

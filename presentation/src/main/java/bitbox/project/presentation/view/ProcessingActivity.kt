@@ -14,6 +14,7 @@ import bitbox.project.presentation.R
 import bitbox.project.presentation.state.Resource
 import bitbox.project.presentation.state.ResourceState
 import bitbox.project.presentation.viewmodel.MainViewModel
+import bitbox.project.presentation.viewmodel.ProcessingViewModel
 import bitbox.project.presentation.viewmodel.ViewModelFactory
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_processing.*
@@ -29,7 +30,7 @@ class ProcessingActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    lateinit var mainViewModel: MainViewModel
+    lateinit var processingViewModel: ProcessingViewModel
 
     var IS_PURCHASE_COMPLETED: Boolean = false
     var IS_PRODUCT_DELIVERED: Boolean = false
@@ -48,13 +49,15 @@ class ProcessingActivity : AppCompatActivity() {
 
         startProcessing()
 
+        processingViewModel.fectchTransaction("33")
+
     }
 
     fun startProcessing(){
 
-        mainViewModel.createTransaction(Transaction(1, 0, 1, 1, 1, null, null))
+        processingViewModel.createTransaction(Transaction(1, 0, 1, 1, 1, null, null))
 
-        mainViewModel.getTransactionResponse().observe(this, Observer<Resource<TransactionResponse>> { response ->
+        processingViewModel.getTransactionResponse().observe(this, Observer<Resource<TransactionResponse>> { response ->
 
             if (!IS_PURCHASE_COMPLETED) handlePurchaseResponse(response)
             else if (!IS_PRODUCT_DELIVERED) handleDeliveryResponse(response)
@@ -73,7 +76,7 @@ class ProcessingActivity : AppCompatActivity() {
                     it.setText(R.string.processing_secondmessage_success)
                 }
 
-                mainViewModel.createTransaction(Transaction(1, 0, 1, 1, 1))
+                processingViewModel.createTransaction(Transaction(1, 0, 1, 1, 1))
             }
 
             ResourceState.LOADING -> {
@@ -151,6 +154,8 @@ class ProcessingActivity : AppCompatActivity() {
 
             startActivity(intent)
 
+            finish()
+
         }
 
         btn_notify_processing.setOnClickListener {
@@ -185,8 +190,8 @@ class ProcessingActivity : AppCompatActivity() {
     }
 
     fun initViewModel(){
-        mainViewModel = ViewModelProviders.of(this, viewModelFactory)
-            .get(MainViewModel::class.java)
+        processingViewModel = ViewModelProviders.of(this, viewModelFactory)
+            .get(ProcessingViewModel::class.java)
     }
 
     override fun onBackPressed() {

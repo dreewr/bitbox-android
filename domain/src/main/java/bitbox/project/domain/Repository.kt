@@ -25,4 +25,6 @@ interface Repository{
 
     fun createTransaction(newTransaction : Transaction): Observable<TransactionResponse>
 
+    fun getTransaction(transactionID: String): Observable<Transaction>
+
 }

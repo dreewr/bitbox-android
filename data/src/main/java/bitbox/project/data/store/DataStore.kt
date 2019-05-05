@@ -18,6 +18,7 @@ import bitbox.project.domain.model.transaction.TransactionResponse
 
 interface DataStore{
 
+    fun getTransaction(transactionID: String): Observable<Transaction>
     fun createTransaction(newTransaction : Transaction): Observable<TransactionResponse>
     fun executeUserLogin(username: String, password: String): Observable<User>
     fun getBitboxItems(bitboxID: String): Observable<BitboxItems>

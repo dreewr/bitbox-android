@@ -21,6 +21,10 @@ import javax.inject.Inject
 
 class RemoteImpl @Inject constructor(
         private val service: RetrofitService) : Remote {
+    override fun getTransaction(transactionID: String): Observable<Transaction> {
+        return service.getTransaction(transactionID)
+    }
+
     override fun getBitboxItems(bitboxID: String): Observable<BitboxItems> {
         return service.getBitboxItems(bitboxID)
     }

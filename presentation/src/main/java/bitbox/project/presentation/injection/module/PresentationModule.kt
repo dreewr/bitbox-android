@@ -6,10 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import bitbox.project.domain.executor.PostExecutionThread
 import bitbox.project.presentation.UiThread
 import bitbox.project.presentation.view.*
-import bitbox.project.presentation.viewmodel.LoginViewModel
-import bitbox.project.presentation.viewmodel.MainViewModel
-import bitbox.project.presentation.viewmodel.ProductsViewModel
-import bitbox.project.presentation.viewmodel.ViewModelFactory
+import bitbox.project.presentation.viewmodel.*
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -69,6 +66,16 @@ abstract class PresentationModule{
     @IntoMap
     @ViewModelKey(ProductsViewModel::class)
     abstract fun bindProductsViewModel(viewModel: ProductsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProcessingViewModel::class)
+    abstract fun bindProcessingViewModel(viewModel: ProcessingViewModel): ViewModel
+
+//    @Binds
+//    @IntoMap
+//    @ViewModelKey(VerificationViewModel::class)
+//    abstract fun bindVerificationViewModel(viewModel: ProductsViewModel): ViewModel
 
 }
 

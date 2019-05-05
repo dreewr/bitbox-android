@@ -23,6 +23,10 @@ class DataRepository @Inject constructor(
         private val factory: DataStoreFactory
 )
     : Repository {
+    override fun getTransaction(transactionID: String): Observable<Transaction> {
+        return factory.getDataStore().getTransaction(transactionID)
+    }
+
     override fun getBitboxItems(bitboxID: String): Observable<BitboxItems> {
         return factory.getDataStore().getBitboxItems(bitboxID)
     }

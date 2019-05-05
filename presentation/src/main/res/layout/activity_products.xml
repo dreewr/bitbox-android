@@ -56,7 +56,6 @@
                     tools:context=".view.ProductsActivity">
 
 
-
                 <!--Root com lista de produtos-->
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                               android:background="@drawable/bg_transparent_round"
@@ -83,9 +82,11 @@
                                     android:textSize="16sp"
                                     android:textColor="@color/white_text" android:layout_weight="4"/>
                             <TextView
+                                    android:id="@+id/txt_saldo_products"
                                     android:layout_width="0dp" android:layout_height="40dp"
                                     android:visibility="visible"
-                                    tools:text="1000" android:gravity="center_vertical|end|right" android:textSize="16sp"
+                                    tools:text="1000" android:gravity="center_vertical|end|right"
+                                    android:textSize="16sp"
                                     android:textColor="@color/accent" android:layout_weight="2"/>
                             <ImageView
                                     android:layout_width="0dp" android:layout_height="40dp"
@@ -107,6 +108,7 @@
                                     android:layout_height="match_parent">
 
                                 <TextView
+                                        android:id="@+id/txt_saldoatual_products"
                                         android:layout_width="0dp" android:layout_height="40dp"
                                         android:visibility="visible"
                                         android:text="1000" android:gravity="center_vertical|end|right"
@@ -129,6 +131,7 @@
                                         android:layout_weight="2"/>
 
                                 <TextView
+                                        android:id="@+id/txt_saldofinal_products"
                                         android:layout_width="0dp" android:layout_height="40dp"
                                         android:visibility="visible"
                                         android:text="800" android:gravity="center_vertical|end|right"
@@ -153,13 +156,13 @@
                                     android:layout_height="match_parent">
 
                                 <TextView
-
-                                        android:layout_width="0dp" android:layout_height="40dp"
+                                        android:id="@+id/txt_nofunds_product"
+                                        android:layout_width="0dp" android:layout_height="24dp"
                                         android:visibility="gone"
                                         android:layout_marginStart="16dp"
                                         android:layout_marginEnd="16dp"
-                                        android:text="Mensagem de erro" android:gravity="center" android:textSize="16sp"
-                                        android:textColor="@color/accent" android:layout_weight="4"/>
+                                        android:text="Saldo insuficiente" android:gravity="center" android:textSize="12sp"
+                                        android:textColor="@color/secondary_text" android:layout_weight="5"/>
                             </LinearLayout>
                         </LinearLayout>
 
@@ -189,7 +192,7 @@
                                 <!--Texto com preço-->
                                 <LinearLayout
                                         android:id="@+id/view_info_product1"
-                                        android:visibility="gone"
+
                                         android:orientation="vertical"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent" android:layout_weight="3">
@@ -202,12 +205,13 @@
                                             android:layout_height="0dp" android:layout_weight="2">
 
                                         <TextView
+                                                android:id="@+id/txt_product1_name"
                                                 android:padding="8dp"
                                                 android:paddingBottom="8dp"
                                                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:visibility="visible"
                                                 android:textStyle="bold"
-                                                android:text="Chocolatinho Colorido " android:gravity="center_vertical"
+                                                tools:text="Chocolatinho Colorido " android:gravity="center_vertical"
                                                 android:textSize="16sp"
                                                 android:textColor="@color/colorPrimary"/>
 
@@ -221,6 +225,7 @@
                                             android:layout_height="0dp" android:layout_weight="1">
 
                                         <TextView
+                                                android:id="@+id/txt_product1_price"
                                                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:visibility="visible"
                                                 android:text="200" android:gravity="center_vertical|end|right"
@@ -242,13 +247,14 @@
                                         android:orientation="vertical"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent" android:layout_weight="5">
-                                    <ImageView android:visibility="gone"
-                                               android:id="@+id/iv_product1"
-                                               android:layout_width="match_parent" android:layout_height="wrap_content"
-                                               android:layout_margin="8dp"
-                                               android:scaleType="fitCenter"
-                                               android:adjustViewBounds="true"
-                                               android:src="@drawable/mem"/>
+                                    <ImageView
+                                            android:id="@+id/iv_product1"
+                                            android:layout_width="match_parent" android:layout_height="wrap_content"
+                                            android:maxHeight="104dp"
+                                            android:layout_margin="8dp"
+                                            android:scaleType="fitCenter"
+                                            android:adjustViewBounds="true"
+                                            android:src="@drawable/mem"/>
                                 </LinearLayout>
 
                                 <ProgressBar
@@ -277,7 +283,7 @@
                                     android:layout_height="wrap_content">
                                 <LinearLayout
                                         android:id="@+id/view_info_product2"
-                                        android:visibility="gone"
+
                                         android:orientation="vertical"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent" android:layout_weight="3">
@@ -289,12 +295,13 @@
                                             android:layout_height="0dp" android:layout_weight="2">
 
                                         <TextView
+                                                android:id="@+id/txt_product2_name"
                                                 android:padding="8dp"
                                                 android:paddingBottom="8dp"
                                                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:visibility="visible"
                                                 android:textStyle="bold"
-                                                android:text="Chocolatinho Colorido " android:gravity="center_vertical"
+                                                tools:text="Chocolatinho Colorido " android:gravity="center_vertical"
                                                 android:textSize="16sp"
                                                 android:textColor="@color/colorPrimary"/>
 
@@ -308,6 +315,7 @@
                                             android:layout_height="0dp" android:layout_weight="1">
 
                                         <TextView
+                                                android:id="@+id/txt_product2_price"
                                                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:visibility="visible"
                                                 android:text="200" android:gravity="center_vertical|end|right"
@@ -331,7 +339,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent" android:layout_weight="5">
                                     <ImageView android:id="@+id/iv_product2"
-                                               android:visibility="gone"
+                                               android:maxHeight="104dp"
                                                android:layout_width="match_parent" android:layout_height="wrap_content"
                                                android:layout_margin="8dp"
                                                android:scaleType="fitCenter"
@@ -365,7 +373,7 @@
                                     android:layout_height="wrap_content">
                                 <LinearLayout
                                         android:id="@+id/view_info_product3"
-                                        android:visibility="gone"
+                                        android:visibility="visible"
                                         android:orientation="vertical"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent" android:layout_weight="3">
@@ -379,12 +387,13 @@
                                             android:layout_height="0dp" android:layout_weight="2">
 
                                         <TextView
+                                                android:id="@+id/txt_product3_name"
                                                 android:padding="8dp"
                                                 android:paddingBottom="8dp"
                                                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:visibility="visible"
                                                 android:textStyle="bold"
-                                                android:text="Chocolatinho Colorido " android:gravity="center_vertical"
+                                                tools:text="Chocolatinho Colorido " android:gravity="center_vertical"
                                                 android:textSize="16sp"
                                                 android:textColor="@color/colorPrimary"/>
 
@@ -398,6 +407,7 @@
                                             android:layout_height="0dp" android:layout_weight="1">
 
                                         <TextView
+                                                android:id="@+id/txt_product3_price"
                                                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:visibility="visible"
                                                 android:text="200" android:gravity="center_vertical|end|right"
@@ -418,13 +428,14 @@
                                         android:orientation="vertical"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent" android:layout_weight="5">
-                                    <ImageView android:visibility="gone"
-                                               android:id="@+id/iv_product3"
-                                               android:layout_width="match_parent" android:layout_height="wrap_content"
-                                               android:layout_margin="8dp"
-                                               android:scaleType="fitCenter"
-                                               android:adjustViewBounds="true"
-                                               android:src="@drawable/mem"/>
+                                    <ImageView
+                                            android:id="@+id/iv_product3"
+                                            android:maxHeight="104dp"
+                                            android:layout_width="match_parent" android:layout_height="wrap_content"
+                                            android:layout_margin="8dp"
+                                            android:scaleType="fitCenter"
+                                            android:adjustViewBounds="true"
+                                            android:src="@drawable/mem"/>
                                 </LinearLayout>
 
                                 <ProgressBar
@@ -451,10 +462,10 @@
                                     android:layout_width="match_parent"
                                     android:background="@drawable/bg_round_white"
                                     android:layout_height="wrap_content">
-                                <!--Container do texto e imagem-->
+                                <!--Container do texto e produtoImagem-->
                                 <LinearLayout
                                         android:id="@+id/view_info_product4"
-                                        android:visibility="gone"
+
                                         android:orientation="vertical"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent" android:layout_weight="3">
@@ -466,12 +477,13 @@
                                             android:layout_height="0dp" android:layout_weight="2">
 
                                         <TextView
+                                                android:id="@+id/txt_product4_name"
                                                 android:padding="8dp"
                                                 android:paddingBottom="8dp"
                                                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:visibility="visible"
                                                 android:textStyle="bold"
-                                                android:text="Chocolatinho Colorido " android:gravity="center_vertical"
+                                                android:text="Noname" android:gravity="center_vertical"
                                                 android:textSize="16sp"
                                                 android:textColor="@color/colorPrimary"/>
 
@@ -485,9 +497,10 @@
                                             android:layout_height="0dp" android:layout_weight="1">
 
                                         <TextView
+                                                android:id="@+id/txt_product4_price"
                                                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:visibility="visible"
-                                                android:text="200" android:gravity="center_vertical|end|right"
+                                                tools:text="200" android:gravity="center_vertical|end|right"
                                                 android:textSize="16sp"
                                                 android:textColor="@color/colorPrimary"/>
                                         <ImageView
@@ -506,8 +519,9 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent" android:layout_weight="5">
                                     <ImageView
-                                            android:visibility="gone"
+
                                             android:id="@+id/iv_product4"
+                                            android:maxHeight="104dp"
                                             android:layout_width="match_parent" android:layout_height="wrap_content"
                                             android:layout_margin="8dp"
                                             android:scaleType="fitCenter"
