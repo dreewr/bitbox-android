@@ -44,9 +44,9 @@ class MainActivity : AppCompatActivity() {
         btn_scan.setOnClickListener {
 
             ProductsActivity.getStartIntent(this).let {
-                it.putExtra("USER_ID", intent.getIntExtra("USER_ID", 0))
-                it.putExtra("USER_SALDO", intent.getIntExtra("USER_SALDO", 0))
-                it.putExtra("USER_NAME", intent.getStringExtra("USER_NAME").toString())
+                it.putExtra("USER_ID", intent?.getIntExtra("USER_ID", 0))
+                it.putExtra("USER_SALDO", intent?.getIntExtra("USER_SALDO", 0))
+                it.putExtra("USER_NAME", intent?.getStringExtra("USER_NAME").toString())
 
             }.run { startActivity(this) }
 

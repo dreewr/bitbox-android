@@ -161,7 +161,8 @@
                                         android:visibility="gone"
                                         android:layout_marginStart="16dp"
                                         android:layout_marginEnd="16dp"
-                                        android:text="Saldo insuficiente" android:gravity="center" android:textSize="12sp"
+                                        android:text="Saldo insuficiente" android:gravity="center"
+                                        android:textSize="12sp"
                                         android:textColor="@color/secondary_text" android:layout_weight="5"/>
                             </LinearLayout>
                         </LinearLayout>
@@ -184,15 +185,32 @@
 
                             <LinearLayout
                                     android:layout_margin="4dp"
+
                                     android:orientation="horizontal"
                                     android:layout_width="match_parent"
                                     android:background="@drawable/bg_round_white"
                                     android:layout_height="wrap_content">
 
+                                <!--Imagem-->
+                                <LinearLayout
+                                        android:layout_marginStart="8dp"
+                                        android:orientation="vertical"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="4">
+                                    <ImageView
+                                            android:id="@+id/iv_product1"
+                                            android:layout_width="match_parent" android:layout_height="wrap_content"
+                                            android:maxHeight="104dp"
+                                            android:layout_margin="8dp"
+                                            android:scaleType="fitCenter"
+                                            android:adjustViewBounds="true"
+                                            android:src="@drawable/mem"/>
+                                </LinearLayout>
                                 <!--Texto com preço-->
                                 <LinearLayout
+                                        android:layout_marginEnd="8dp"
                                         android:id="@+id/view_info_product1"
-
                                         android:orientation="vertical"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent" android:layout_weight="3">
@@ -208,10 +226,11 @@
                                                 android:id="@+id/txt_product1_name"
                                                 android:padding="8dp"
                                                 android:paddingBottom="8dp"
-                                                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:layout_width="match_parent" android:layout_height="wrap_content"
                                                 android:visibility="visible"
                                                 android:textStyle="bold"
-                                                tools:text="Chocolatinho Colorido " android:gravity="center_vertical"
+                                                tools:text="Chocolate "
+                                                android:gravity="center_vertical|end"
                                                 android:textSize="16sp"
                                                 android:textColor="@color/colorPrimary"/>
 
@@ -222,39 +241,26 @@
                                             android:layout_marginBottom="16dp"
                                             android:orientation="horizontal"
                                             android:layout_width="match_parent"
-                                            android:layout_height="0dp" android:layout_weight="1">
+                                            android:layout_height="wrap_content">
 
                                         <TextView
                                                 android:id="@+id/txt_product1_price"
                                                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:visibility="visible"
-                                                android:text="200" android:gravity="center_vertical|end|right"
+                                                android:text="200"
+                                                android:textStyle="italic"
+                                                android:gravity="center_vertical|end|right"
                                                 android:textSize="16sp"
                                                 android:textColor="@color/colorPrimary"/>
                                         <ImageView
-                                                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
                                                 android:adjustViewBounds="true"
                                                 android:layout_gravity="center"
                                                 android:src="@drawable/ic_bitcoin_yellow"
                                                 android:visibility="visible"
-                                                android:layout_marginRight="8dp"
                                         />
                                     </LinearLayout>
-                                </LinearLayout>
-
-                                <!--Imagem-->
-                                <LinearLayout
-                                        android:orientation="vertical"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent" android:layout_weight="5">
-                                    <ImageView
-                                            android:id="@+id/iv_product1"
-                                            android:layout_width="match_parent" android:layout_height="wrap_content"
-                                            android:maxHeight="104dp"
-                                            android:layout_margin="8dp"
-                                            android:scaleType="fitCenter"
-                                            android:adjustViewBounds="true"
-                                            android:src="@drawable/mem"/>
                                 </LinearLayout>
 
                                 <ProgressBar
@@ -281,14 +287,34 @@
                                     android:layout_width="match_parent"
                                     android:background="@drawable/bg_round_white"
                                     android:layout_height="wrap_content">
-                                <LinearLayout
-                                        android:id="@+id/view_info_product2"
 
+                                <!--Imagem-->
+                                <LinearLayout
+                                        android:layout_marginStart="8dp"
                                         android:orientation="vertical"
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent" android:layout_weight="3">
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="4">
+                                    <ImageView android:id="@+id/iv_product2"
+                                               android:maxHeight="104dp"
+                                               android:layout_width="match_parent" android:layout_height="wrap_content"
+                                               android:layout_margin="8dp"
+                                               android:scaleType="fitCenter"
+                                               android:adjustViewBounds="true"
+                                               android:src="@drawable/mem"/>
+                                </LinearLayout>
+
+                                <!--Texto com preço-->
+                                <LinearLayout
+                                        android:id="@+id/view_info_product2"
+                                        android:layout_marginEnd="8dp"
+                                        android:orientation="vertical"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="3">
 
                                     <LinearLayout
+
                                             android:gravity="center|bottom"
                                             android:orientation="horizontal"
                                             android:layout_width="match_parent"
@@ -298,10 +324,11 @@
                                                 android:id="@+id/txt_product2_name"
                                                 android:padding="8dp"
                                                 android:paddingBottom="8dp"
-                                                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:layout_width="match_parent" android:layout_height="wrap_content"
                                                 android:visibility="visible"
                                                 android:textStyle="bold"
-                                                tools:text="Chocolatinho Colorido " android:gravity="center_vertical"
+                                                tools:text="Chocolatinho Colorido"
+                                                android:gravity="center_vertical|end"
                                                 android:textSize="16sp"
                                                 android:textColor="@color/colorPrimary"/>
 
@@ -312,40 +339,30 @@
                                             android:layout_marginBottom="16dp"
                                             android:orientation="horizontal"
                                             android:layout_width="match_parent"
-                                            android:layout_height="0dp" android:layout_weight="1">
+                                            android:layout_height="wrap_content"
+                                    >
 
                                         <TextView
                                                 android:id="@+id/txt_product2_price"
                                                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:visibility="visible"
-                                                android:text="200" android:gravity="center_vertical|end|right"
+                                                android:text="200"
+                                                android:gravity="center_vertical|end|right"
                                                 android:textSize="16sp"
                                                 android:textColor="@color/colorPrimary"/>
                                         <ImageView
-                                                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
                                                 android:adjustViewBounds="true"
                                                 android:layout_gravity="center"
                                                 android:src="@drawable/ic_bitcoin_yellow"
                                                 android:visibility="visible"
-                                                android:layout_marginRight="8dp"
                                         />
                                     </LinearLayout>
 
-
+                                    <!--Texto com preço-->
                                 </LinearLayout>
 
-                                <LinearLayout
-                                        android:orientation="vertical"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent" android:layout_weight="5">
-                                    <ImageView android:id="@+id/iv_product2"
-                                               android:maxHeight="104dp"
-                                               android:layout_width="match_parent" android:layout_height="wrap_content"
-                                               android:layout_margin="8dp"
-                                               android:scaleType="fitCenter"
-                                               android:adjustViewBounds="true"
-                                               android:src="@drawable/mem"/>
-                                </LinearLayout>
 
                                 <ProgressBar
                                         android:layout_gravity="center"
@@ -371,7 +388,27 @@
                                     android:layout_width="match_parent"
                                     android:background="@drawable/bg_round_white"
                                     android:layout_height="wrap_content">
+
+                                <!--Imagem-->
                                 <LinearLayout
+                                        android:layout_marginStart="8dp"
+                                        android:orientation="vertical"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="4">
+                                    <ImageView
+                                            android:id="@+id/iv_product3"
+                                            android:maxHeight="104dp"
+                                            android:layout_width="match_parent" android:layout_height="wrap_content"
+                                            android:layout_margin="8dp"
+                                            android:scaleType="fitCenter"
+                                            android:adjustViewBounds="true"
+                                            android:src="@drawable/mem"/>
+                                </LinearLayout>
+
+                                <!--Texto com preço-->
+                                <LinearLayout
+                                        android:layout_marginEnd="8dp"
                                         android:id="@+id/view_info_product3"
                                         android:visibility="visible"
                                         android:orientation="vertical"
@@ -390,10 +427,11 @@
                                                 android:id="@+id/txt_product3_name"
                                                 android:padding="8dp"
                                                 android:paddingBottom="8dp"
-                                                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:layout_width="match_parent" android:layout_height="wrap_content"
                                                 android:visibility="visible"
                                                 android:textStyle="bold"
-                                                tools:text="Chocolatinho Colorido " android:gravity="center_vertical"
+                                                tools:text="Chocolatinho Colorido "
+                                                android:gravity="center_vertical|end"
                                                 android:textSize="16sp"
                                                 android:textColor="@color/colorPrimary"/>
 
@@ -404,7 +442,8 @@
                                             android:layout_marginBottom="16dp"
                                             android:orientation="horizontal"
                                             android:layout_width="match_parent"
-                                            android:layout_height="0dp" android:layout_weight="1">
+                                            android:layout_height="wrap_content"
+                                            >
 
                                         <TextView
                                                 android:id="@+id/txt_product3_price"
@@ -419,24 +458,11 @@
                                                 android:layout_gravity="center"
                                                 android:src="@drawable/ic_bitcoin_yellow"
                                                 android:visibility="visible"
-                                                android:layout_marginRight="8dp"
+
                                         />
                                     </LinearLayout>
                                 </LinearLayout>
 
-                                <LinearLayout
-                                        android:orientation="vertical"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent" android:layout_weight="5">
-                                    <ImageView
-                                            android:id="@+id/iv_product3"
-                                            android:maxHeight="104dp"
-                                            android:layout_width="match_parent" android:layout_height="wrap_content"
-                                            android:layout_margin="8dp"
-                                            android:scaleType="fitCenter"
-                                            android:adjustViewBounds="true"
-                                            android:src="@drawable/mem"/>
-                                </LinearLayout>
 
                                 <ProgressBar
                                         android:layout_gravity="center"
@@ -462,10 +488,29 @@
                                     android:layout_width="match_parent"
                                     android:background="@drawable/bg_round_white"
                                     android:layout_height="wrap_content">
+                                <!--Imagem-->
+                                <LinearLayout
+                                        android:layout_marginStart="8dp"
+                                        android:orientation="vertical"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="4">
+                                    <ImageView
+
+                                            android:id="@+id/iv_product4"
+                                            android:maxHeight="104dp"
+                                            android:layout_width="match_parent" android:layout_height="wrap_content"
+                                            android:layout_margin="8dp"
+                                            android:scaleType="fitCenter"
+                                            android:adjustViewBounds="true"
+                                            android:src="@drawable/mem"/>
+
+                                </LinearLayout>
+
                                 <!--Container do texto e produtoImagem-->
                                 <LinearLayout
                                         android:id="@+id/view_info_product4"
-
+                                        android:layout_marginEnd="8dp"
                                         android:orientation="vertical"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent" android:layout_weight="3">
@@ -474,16 +519,18 @@
                                             android:gravity="center|bottom"
                                             android:orientation="horizontal"
                                             android:layout_width="match_parent"
-                                            android:layout_height="0dp" android:layout_weight="2">
+                                            android:layout_height="0dp"
+                                            android:layout_weight="2">
 
                                         <TextView
                                                 android:id="@+id/txt_product4_name"
                                                 android:padding="8dp"
                                                 android:paddingBottom="8dp"
-                                                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:layout_width="match_parent" android:layout_height="wrap_content"
                                                 android:visibility="visible"
                                                 android:textStyle="bold"
-                                                android:text="Noname" android:gravity="center_vertical"
+                                                tools:text="Chocolatinho Colorido "
+                                                android:gravity="center_vertical|end"
                                                 android:textSize="16sp"
                                                 android:textColor="@color/colorPrimary"/>
 
@@ -494,7 +541,7 @@
                                             android:layout_marginBottom="16dp"
                                             android:orientation="horizontal"
                                             android:layout_width="match_parent"
-                                            android:layout_height="0dp" android:layout_weight="1">
+                                            android:layout_height="wrap_content">
 
                                         <TextView
                                                 android:id="@+id/txt_product4_price"
@@ -509,26 +556,12 @@
                                                 android:layout_gravity="center"
                                                 android:src="@drawable/ic_bitcoin_yellow"
                                                 android:visibility="visible"
-                                                android:layout_marginRight="8dp"
+
                                         />
                                     </LinearLayout>
                                 </LinearLayout>
 
-                                <LinearLayout
-                                        android:orientation="vertical"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent" android:layout_weight="5">
-                                    <ImageView
 
-                                            android:id="@+id/iv_product4"
-                                            android:maxHeight="104dp"
-                                            android:layout_width="match_parent" android:layout_height="wrap_content"
-                                            android:layout_margin="8dp"
-                                            android:scaleType="fitCenter"
-                                            android:adjustViewBounds="true"
-                                            android:src="@drawable/mem"/>
-
-                                </LinearLayout>
                                 <ProgressBar
                                         android:layout_gravity="center"
                                         android:id="@+id/pgs_product4"

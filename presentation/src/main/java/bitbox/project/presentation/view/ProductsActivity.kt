@@ -34,7 +34,7 @@ class ProductsActivity : AppCompatActivity() {
     var enablePurchase: Boolean = false
 
     companion object {
-        fun getStartIntent(context : Context):Intent{
+        fun getStartIntent(context: Context): Intent {
             return Intent(context, ProductsActivity::class.java)
         }
     }
@@ -66,22 +66,24 @@ class ProductsActivity : AppCompatActivity() {
 
             val newBalance: Double = productsViewModel.getUserBalance().value!!.minus(value)
 
-            if (newBalance >= 0){
+            if (newBalance >= 0) {
                 txt_saldofinal_products.text = newBalance.toString()
                 txt_saldofinal_products.setTextColor(ContextCompat.getColor(this, R.color.accent))
                 txt_nofunds_product.visibility = GONE
-                enablePurchase = true
+                //enablePurchase = true
+                enableBuyButton(true)
 
             } else {
                 txt_saldofinal_products.text = newBalance.toString()
                 txt_saldofinal_products.setTextColor(ContextCompat.getColor(this, R.color.secondary_text))
                 txt_nofunds_product.visibility = VISIBLE
-                enablePurchase = false
+                enableBuyButton(false)
             }
 
         })
     }
-    fun initListeners(){
+
+    fun initListeners() {
         btn_buy.setOnClickListener {
 
             VerificationActivity.getStartIntent(this).let {
@@ -90,7 +92,7 @@ class ProductsActivity : AppCompatActivity() {
                 it.putExtra("USER_NAME", intent.getStringExtra("USER_NAME").toString())
 
             }.run { startActivity(this) }
-            
+
         }
 
         btn_back_products.setOnClickListener {
@@ -100,18 +102,19 @@ class ProductsActivity : AppCompatActivity() {
                 it.putExtra("USER_SALDO", intent.getIntExtra("USER_SALDO", 0))
                 it.putExtra("USER_NAME", intent.getStringExtra("USER_NAME"))
 
-            }.run { startActivity(this)
-                finish()}
+            }.run {
+                startActivity(this)
+                finish()
+            }
         }
     }
 
-    fun initViewModel(){
+    fun initViewModel() {
         productsViewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(ProductsViewModel::class.java)
-
     }
 
-    fun initViews(){
+    fun initViews() {
 
         btn_product1.isClickable = false
         btn_product2.isClickable = false
@@ -130,7 +133,7 @@ class ProductsActivity : AppCompatActivity() {
         iv_product3.visibility = GONE
         iv_product4.visibility = GONE
 
-        view_info_product1.visibility= GONE
+        view_info_product1.visibility = GONE
         view_info_product2.visibility = GONE
         view_info_product3.visibility = GONE
         view_info_product4.visibility = GONE
@@ -138,7 +141,7 @@ class ProductsActivity : AppCompatActivity() {
 
     }
 
-    fun initProductListeners(items: BitboxItems?){
+    fun initProductListeners(items: BitboxItems?) {
 
         //TODO: Criar uma variável no viewModel pra controlar a lógica do Purchase e tirar da lógica dos botões
         btn_product1.setOnClickListener {
@@ -151,9 +154,9 @@ class ProductsActivity : AppCompatActivity() {
 
             view_purchaseresult.visibility = VISIBLE
 
-           productsViewModel.getSelectedProductPrice().postValue(items!!.itensDisponiveis[0].produtoPreco)
+            productsViewModel.getSelectedProductPrice().postValue(items!!.itensDisponiveis[0].produtoPreco)
 
-           if(enablePurchase) enableBuyButton()
+
         }
 
         btn_product2.setOnClickListener {
@@ -167,8 +170,7 @@ class ProductsActivity : AppCompatActivity() {
 
             view_purchaseresult.visibility = VISIBLE
             productsViewModel.getSelectedProductPrice().postValue(items!!.itensDisponiveis[1].produtoPreco)
-
-            if(enablePurchase) enableBuyButton()
+            
         }
 
         btn_product3.setOnClickListener {
@@ -181,7 +183,7 @@ class ProductsActivity : AppCompatActivity() {
 
             view_purchaseresult.visibility = VISIBLE
             productsViewModel.getSelectedProductPrice().postValue(items!!.itensDisponiveis[2].produtoPreco)
-            if(enablePurchase) enableBuyButton()
+
 
         }
 
@@ -197,18 +199,21 @@ class ProductsActivity : AppCompatActivity() {
 
             productsViewModel.getSelectedProductPrice().postValue(666.66)
 
-            if(enablePurchase) enableBuyButton()
-
         }
 
     }
 
-    private fun enableBuyButton(){
-        btn_buy.alpha = 1f
-        btn_buy.isClickable = true
+    private fun enableBuyButton(isEnabled: Boolean) {
+        if (isEnabled) {
+            btn_buy.alpha = 1f
+            btn_buy.isClickable = true
+        } else {
+            btn_buy.alpha = 0.6f
+            btn_buy.isClickable = false
+        }
     }
 
-    private fun updateProductsView(items: BitboxItems?){
+    private fun updateProductsView(items: BitboxItems?) {
 
         btn_product1.isClickable = true
         btn_product2.isClickable = true
@@ -225,7 +230,7 @@ class ProductsActivity : AppCompatActivity() {
         iv_product3.visibility = VISIBLE
         iv_product4.visibility = VISIBLE
 
-        view_info_product1.visibility= VISIBLE
+        view_info_product1.visibility = VISIBLE
         view_info_product2.visibility = VISIBLE
         view_info_product3.visibility = VISIBLE
         view_info_product4.visibility = VISIBLE
@@ -242,10 +247,17 @@ class ProductsActivity : AppCompatActivity() {
         //txt_product4_name.text = items.itensDisponiveis[3].produtoNome
         //txt_product4_price.text = items.itensDisponiveis[3].produtoPreco.toString()
 
-        Glide.with(this).load("https://static.carrefour.com.br/medias/sys_master/images/images/h21/he0/h00/h00/11096531959838.jpg").apply(RequestOptions().centerInside()).into(iv_product1)
-        Glide.with(this).load("https://araujo.vteximg.com.br/arquivos/ids/3879991-1000-1000/07892840253745.jpg").apply(RequestOptions().centerInside()).into(iv_product2)
-        Glide.with(this).load("https://static.carrefour.com.br/medias/sys_master/images/images/h21/he0/h00/h00/11096531959838.jpg").apply(RequestOptions().centerInside()).into(iv_product3)
-        Glide.with(this).load("https://static.carrefour.com.br/medias/sys_master/images/images/h21/he0/h00/h00/11096531959838.jpg").apply(RequestOptions().centerInside()).into(iv_product4)
+        Glide.with(this)
+            .load("https://static.carrefour.com.br/medias/sys_master/images/images/h21/he0/h00/h00/11096531959838.jpg")
+            .apply(RequestOptions().centerInside()).into(iv_product1)
+        Glide.with(this).load("https://araujo.vteximg.com.br/arquivos/ids/3879991-1000-1000/07892840253745.jpg")
+            .apply(RequestOptions().centerInside()).into(iv_product2)
+        Glide.with(this)
+            .load("https://static.carrefour.com.br/medias/sys_master/images/images/h21/he0/h00/h00/11096531959838.jpg")
+            .apply(RequestOptions().centerInside()).into(iv_product3)
+        Glide.with(this)
+            .load("https://static.carrefour.com.br/medias/sys_master/images/images/h21/he0/h00/h00/11096531959838.jpg")
+            .apply(RequestOptions().centerInside()).into(iv_product4)
 
     }
 
