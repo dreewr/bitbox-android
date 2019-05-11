@@ -67,7 +67,14 @@ class LoginActivity : BaseActivity() {
 
     }
 
-    //Todo: mudar a lógica dos intents para usar um objecto injetável
+    fun initUserInfo(id: Int, name: String, saldo: Double) {
+
+        userInfo.userBalance = saldo
+        userInfo.userName = name
+        userInfo.userID = id
+
+    }
+
     private fun handleLoginRequest(resource: Resource<User>) {
         when (resource.status) {
             ResourceState.SUCCESS -> {
@@ -75,15 +82,8 @@ class LoginActivity : BaseActivity() {
                 val user: User? = resource.data
 
                 if (user?.erro == 0) {
-
-                    userInfo.userBalance = user.saldo
-
-                    MainActivity.getStartIntent(this).let {
-                            it.putExtra("USER_ID", user.idUsuario)
-                            it.putExtra("USER_SALDO", user.saldo)
-                        it.putExtra("USER_NAME", et_username_login.text.toString())
-
-                    }.run { startActivity(this) }
+                    initUserInfo(user.idUsuario, et_username_login.text.toString(), user.saldo)
+                    MainActivity.getStartIntent(this).run { startActivity(this) }
                     finish()
                 } else {
                     pgs_login.visibility = GONE
@@ -107,6 +107,7 @@ class LoginActivity : BaseActivity() {
                 Toast.makeText(
                     this, "Houve um erro inesperado. Cheque sua conexão e tente novamente", Toast.LENGTH_SHORT
                 ).show()
+
                 pgs_login.visibility = GONE
                 btn_login.visibility = VISIBLE
                 et_username_login.isEnabled = true

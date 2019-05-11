@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
+import bitbox.project.domain.model.transaction.TransactionInfo
 import bitbox.project.presentation.R
 import bitbox.project.presentation.viewmodel.MainViewModel
 import bitbox.project.presentation.viewmodel.ViewModelFactory
@@ -16,7 +17,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class MainActivity :BaseActivity() {
-
 
     lateinit var mainViewModel: MainViewModel
 
@@ -29,45 +29,32 @@ class MainActivity :BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.i("MainActivity", "Created")
         AndroidInjection.inject(this)
-
+        //transactionInfo = TransactionInfo() //sempre inicializa
         initViews()
         initViewModel()
         initListeners()
-
     }
 
     fun initListeners(){
-        btn_scan.setOnClickListener {
-
-            ProductsActivity.getStartIntent(this).let {
-                it.putExtra("USER_ID", intent?.getIntExtra("USER_ID", 0))
-                it.putExtra("USER_SALDO", intent?.getIntExtra("USER_SALDO", 0))
-                it.putExtra("USER_NAME", intent?.getStringExtra("USER_NAME").toString())
-
-            }.run { startActivity(this) }
-
-        }
+        //TODO: Atualizar para que seja pega dinamicamente
+        transactionInfo.machineID = 1
+        btn_scan.setOnClickListener { ProductsActivity.getStartIntent(this).run { startActivity(this) } }
     }
+
     fun initViews(){
-
-        txt_saldo_main.text = intent.getFloatExtra("USER_SALDO", 0f).toString()
-        txt_username_main.text = intent.getStringExtra("USER_NAME")
-
+        txt_saldo_main.text = userInfo.userBalance.toString()
+        txt_username_main.text = userInfo.userName
     }
 
     fun initViewModel(){
         //passar o id pra esse cara aqui
         mainViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(MainViewModel::class.java)
-
     }
-
 
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
     }
-
 }

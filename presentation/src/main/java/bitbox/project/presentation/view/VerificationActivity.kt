@@ -22,10 +22,8 @@ import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_verification.*
 import javax.inject.Inject
 
-class VerificationActivity : AppCompatActivity() {
+class VerificationActivity : BaseActivity() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
     lateinit var mainViewModel: ProcessingViewModel
 
     companion object {
@@ -43,8 +41,6 @@ class VerificationActivity : AppCompatActivity() {
 
         initViews()
 
-        mainViewModel.fetchTransaction("33")
-
         mainViewModel.getTransactionResponse().observe(this, Observer<Resource<TransactionResponse>> { response ->
 
             handleDataState(response)
@@ -52,7 +48,7 @@ class VerificationActivity : AppCompatActivity() {
 
         btn_verify.setOnClickListener {
 
-            mainViewModel.createTransaction(Transaction(1,0,1,1,1))
+            mainViewModel.createTransaction(Transaction(1,0,transactionInfo.machineID , transactionInfo.productID, userInfo.userID))
         }
 
         btn_back_verification.setOnClickListener {
@@ -72,20 +68,11 @@ class VerificationActivity : AppCompatActivity() {
         })
     }
 
-
     private fun handleDataState(resource: Resource<TransactionResponse>) {
         when (resource.status) {
             ResourceState.SUCCESS -> {
 
-                ProcessingActivity.getStartIntent(this).let {
-                    it.putExtra("USER_ID", intent.getIntExtra("USER_ID", 0))
-                    it.putExtra("USER_SALDO", intent.getIntExtra("USER_SALDO", 0))
-                    it.putExtra("USER_NAME", intent.getStringExtra("USER_NAME").toString())
-
-                }.run { startActivity(this) }
-
-
-
+                ProcessingActivity.getStartIntent(this).run { startActivity(this) }
                 pgs_verify.visibility = View.GONE
                 btn_verify.visibility = VISIBLE
             }
@@ -124,7 +111,6 @@ class VerificationActivity : AppCompatActivity() {
         }
 
     }
-
 
     override fun onBackPressed() {
         super.onBackPressed()

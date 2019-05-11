@@ -13,6 +13,6 @@ class UserInfo @Inject constructor() {
 //    "saldoPendente": 0
 
     var userBalance : Double? = 0.0
-    var userID : Int? = 0
+    var userID : Int = 0
     var userName: String? = ""
 }

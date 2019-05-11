@@ -30,8 +30,8 @@ class ProcessingActivity : BaseActivity() {
 
     lateinit var processingViewModel: ProcessingViewModel
 
-    var IS_PURCHASE_COMPLETED: Boolean = false
-    var IS_PRODUCT_DELIVERED: Boolean = false
+    var IS_PURCHASE_COMPLETED: Boolean = false //Colocar no ViewModel
+    var IS_PRODUCT_DELIVERED: Boolean = false  //Colocar no ViewModel
 
     companion object {
         fun getStartIntent(context : Context):Intent{
@@ -59,7 +59,7 @@ class ProcessingActivity : BaseActivity() {
 
     fun startProcessing(){
 
-        processingViewModel.createTransaction(Transaction(1, 0, 1, 1, 2, null, null))
+        processingViewModel.createTransaction(Transaction(1,0,transactionInfo.machineID , transactionInfo.productID, userInfo.userID))
 
         processingViewModel.getTransactionResponse().observe(this, Observer<Resource<TransactionResponse>> { response ->
 

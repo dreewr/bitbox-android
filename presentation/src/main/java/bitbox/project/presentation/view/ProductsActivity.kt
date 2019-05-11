@@ -20,6 +20,7 @@ import bitbox.project.presentation.viewmodel.ViewModelFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dagger.android.AndroidInjection
+import io.reactivex.rxkotlin.toSingle
 import kotlinx.android.synthetic.main.activity_products.*
 import javax.inject.Inject
 
@@ -27,7 +28,6 @@ class ProductsActivity : BaseActivity() {
 
     lateinit var productsViewModel: ProductsViewModel
     var isProductSelected: Boolean = false
-    var enablePurchase: Boolean = false
 
     companion object {
         fun getStartIntent(context: Context): Intent {
@@ -49,8 +49,8 @@ class ProductsActivity : BaseActivity() {
 
             handleBitboxItems(response)
         })
-        productsViewModel.fetchBitboxItems("1")
-
+        //TODO: Pegar essa referência dinamicamente atra´ves de um objeto injetável
+        productsViewModel.fetchBitboxItems(transactionInfo.machineID.toString())
         initListeners()
     }
 
@@ -80,64 +80,15 @@ class ProductsActivity : BaseActivity() {
     }
 
     fun initListeners() {
-        btn_buy.setOnClickListener {
-
-            VerificationActivity.getStartIntent(this).let {
-                it.putExtra("USER_ID", intent.getIntExtra("USER_ID", 0))
-                it.putExtra("USER_SALDO", intent.getFloatExtra("USER_SALDO", 0.0f))
-                it.putExtra("USER_NAME", intent.getStringExtra("USER_NAME").toString())
-
-            }.run { startActivity(this) }
-
-        }
+        btn_buy.setOnClickListener { VerificationActivity.getStartIntent(this).run { startActivity(this) } }
 
         btn_back_products.setOnClickListener {
 
-            MainActivity.getStartIntent(this).let {
-                it.putExtra("USER_ID", intent.getIntExtra("USER_ID", 0))
-                it.putExtra("USER_SALDO", intent.getFloatExtra("USER_SALDO", 0.0f))
-                it.putExtra("USER_NAME", intent.getStringExtra("USER_NAME"))
-
-            }.run {
+            MainActivity.getStartIntent(this).run {
                 startActivity(this)
                 finish()
             }
         }
-    }
-
-    fun initViewModel() {
-        productsViewModel = ViewModelProviders.of(this, viewModelFactory)
-            .get(ProductsViewModel::class.java)
-    }
-
-    fun initViews() {
-
-        btn_product1.isClickable = false
-        btn_product2.isClickable = false
-        btn_product3.isClickable = false
-        btn_product4.isClickable = false
-
-//        productsViewModel.getUserBalance().postValue(intent.getFloatExtra("USER_SALDO", 0.0f).toDouble())
-
-        productsViewModel.getUserBalance().postValue(1000.0)
-//        txt_saldo_products.text = intent.getIntExtra("USER_SALDO", 0).toString()
-        txt_saldo_products.text = "1000"
-        txt_saldoatual_products.text = "1000"
-//        txt_saldoatual_products.text = intent.getFloatExtra("USER_SALDO", 0.0f).toString()
-
-        view_purchaseresult.visibility = GONE
-
-        iv_product1.visibility = GONE
-        iv_product2.visibility = GONE
-        iv_product3.visibility = GONE
-        iv_product4.visibility = GONE
-
-        view_info_product1.visibility = GONE
-        view_info_product2.visibility = GONE
-        view_info_product3.visibility = GONE
-        view_info_product4.visibility = GONE
-
-
     }
 
     fun initProductListeners(items: BitboxItems?) {
@@ -148,6 +99,8 @@ class ProductsActivity : BaseActivity() {
             btn_product2.setBackgroundResource(R.color.transparent)
             btn_product3.setBackgroundResource(R.color.transparent)
             btn_product4.setBackgroundResource(R.color.transparent)
+
+            transactionInfo.productID = items!!.itensDisponiveis[0].produtoId
 
             isProductSelected = true
 
@@ -164,6 +117,8 @@ class ProductsActivity : BaseActivity() {
             btn_product3.setBackgroundResource(R.color.transparent)
             btn_product4.setBackgroundResource(R.color.transparent)
 
+            transactionInfo.productID = items!!.itensDisponiveis[1].produtoId
+
             isProductSelected = true
 
             view_purchaseresult.visibility = VISIBLE
@@ -179,6 +134,8 @@ class ProductsActivity : BaseActivity() {
 
             isProductSelected = true
 
+            transactionInfo.productID = items!!.itensDisponiveis[2].produtoId
+
             view_purchaseresult.visibility = VISIBLE
             productsViewModel.getSelectedProductPrice().postValue(items!!.itensDisponiveis[2].produtoPreco)
 
@@ -191,13 +148,48 @@ class ProductsActivity : BaseActivity() {
             btn_product3.setBackgroundResource(R.color.transparent)
             btn_product4.setBackgroundResource(R.drawable.bg_gradient)
 
+            transactionInfo.productID = items!!.itensDisponiveis[2].produtoId
+
             isProductSelected = true
 
             view_purchaseresult.visibility = VISIBLE
 
-            productsViewModel.getSelectedProductPrice().postValue(666.66)
+            productsViewModel.getSelectedProductPrice().postValue(items!!.itensDisponiveis[3].produtoPreco)
 
         }
+
+    }
+
+    fun initViewModel() {
+        productsViewModel = ViewModelProviders.of(this, viewModelFactory)
+            .get(ProductsViewModel::class.java)
+
+        productsViewModel.getUserBalance().postValue(userInfo.userBalance)
+    }
+
+    fun initViews() {
+
+        btn_product1.isClickable = false
+        btn_product2.isClickable = false
+        btn_product3.isClickable = false
+        btn_product4.isClickable = false
+
+        txt_saldo_products.text = userInfo.userBalance.toString()
+        txt_saldoatual_products.text = userInfo.userBalance.toString()
+
+        view_purchaseresult.visibility = GONE
+
+        txt_nofunds_product.visibility = GONE
+
+        iv_product1.visibility = GONE
+        iv_product2.visibility = GONE
+        iv_product3.visibility = GONE
+        iv_product4.visibility = GONE
+
+        view_info_product1.visibility = GONE
+        view_info_product2.visibility = GONE
+        view_info_product3.visibility = GONE
+        view_info_product4.visibility = GONE
 
     }
 
@@ -235,28 +227,27 @@ class ProductsActivity : BaseActivity() {
 
         txt_product1_name.text = items!!.itensDisponiveis[0].produtoNome
         txt_product1_price.text = items!!.itensDisponiveis[0].produtoPreco.toString()
+        Glide.with(this)
+            .load(items!!.itensDisponiveis[0].produtoImagem)
+            .apply(RequestOptions().centerInside()).into(iv_product1)
 
         txt_product2_name.text = items!!.itensDisponiveis[1].produtoNome
         txt_product2_price.text = items!!.itensDisponiveis[1].produtoPreco.toString()
+        Glide.with(this)
+            .load(items!!.itensDisponiveis[1].produtoImagem)
+            .apply(RequestOptions().centerInside()).into(iv_product2)
 
         txt_product3_name.text = items!!.itensDisponiveis[2].produtoNome
         txt_product3_price.text = items!!.itensDisponiveis[2].produtoPreco.toString()
-
-        //txt_product4_name.text = items.itensDisponiveis[3].produtoNome
-        //txt_product4_price.text = items.itensDisponiveis[3].produtoPreco.toString()
-
         Glide.with(this)
-            .load("https://static.carrefour.com.br/medias/sys_master/images/images/h21/he0/h00/h00/11096531959838.jpg")
-            .apply(RequestOptions().centerInside()).into(iv_product1)
-        Glide.with(this).load("https://araujo.vteximg.com.br/arquivos/ids/3879991-1000-1000/07892840253745.jpg")
-            .apply(RequestOptions().centerInside()).into(iv_product2)
-        Glide.with(this)
-            .load("https://static.carrefour.com.br/medias/sys_master/images/images/h21/he0/h00/h00/11096531959838.jpg")
+            .load(items!!.itensDisponiveis[2].produtoImagem)
             .apply(RequestOptions().centerInside()).into(iv_product3)
-        Glide.with(this)
-            .load("https://static.carrefour.com.br/medias/sys_master/images/images/h21/he0/h00/h00/11096531959838.jpg")
-            .apply(RequestOptions().centerInside()).into(iv_product4)
 
+        txt_product4_name.text = items.itensDisponiveis[3].produtoNome
+        txt_product4_price.text = items.itensDisponiveis[3].produtoPreco.toString()
+        Glide.with(this)
+            .load(items!!.itensDisponiveis[3].produtoImagem)
+            .apply(RequestOptions().centerInside()).into(iv_product4)
     }
 
     private fun handleBitboxItems(resource: Resource<BitboxItems>) {
