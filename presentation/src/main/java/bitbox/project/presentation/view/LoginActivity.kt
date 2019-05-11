@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import bitbox.project.domain.model.user.User
+import bitbox.project.domain.model.user.UserInfo
 
 import bitbox.project.presentation.R
 import bitbox.project.presentation.state.Resource
@@ -20,12 +21,15 @@ import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
 
-    //Temporário - Trocar por um ViewModel próprio da classe
+//
+//    @Inject
+//    lateinit var viewModelFactory: ViewModelFactory
+//
+//    @Inject
+//    lateinit var userInfo: UserInfo
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
     lateinit var loginViewModel: LoginViewModel
 
 
@@ -63,6 +67,7 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    //Todo: mudar a lógica dos intents para usar um objecto injetável
     private fun handleLoginRequest(resource: Resource<User>) {
         when (resource.status) {
             ResourceState.SUCCESS -> {
@@ -70,6 +75,8 @@ class LoginActivity : AppCompatActivity() {
                 val user: User? = resource.data
 
                 if (user?.erro == 0) {
+
+                    userInfo.userBalance = user.saldo
 
                     MainActivity.getStartIntent(this).let {
                             it.putExtra("USER_ID", user.idUsuario)
@@ -83,11 +90,16 @@ class LoginActivity : AppCompatActivity() {
                     btn_login.visibility = VISIBLE
                     Toast.makeText(this, "Usuário ou senha incorretos!", Toast.LENGTH_SHORT).show()
                 }
+
+                et_username_login.isEnabled = true
+                et_password_login.isEnabled = true
             }
 
             ResourceState.LOADING -> {
                 pgs_login.visibility = VISIBLE
                 btn_login.visibility = GONE
+                et_username_login.isEnabled = false
+                et_password_login.isEnabled = false
 
             }
             ResourceState.ERROR -> {
@@ -97,7 +109,8 @@ class LoginActivity : AppCompatActivity() {
                 ).show()
                 pgs_login.visibility = GONE
                 btn_login.visibility = VISIBLE
-
+                et_username_login.isEnabled = true
+                et_password_login.isEnabled = true
             }
         }
     }

@@ -26,10 +26,8 @@ import javax.inject.Inject
 //Terceira
 
 
-class ProcessingActivity : AppCompatActivity() {
+class ProcessingActivity : BaseActivity() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
     lateinit var processingViewModel: ProcessingViewModel
 
     var IS_PURCHASE_COMPLETED: Boolean = false
@@ -61,7 +59,7 @@ class ProcessingActivity : AppCompatActivity() {
 
     fun startProcessing(){
 
-        processingViewModel.createTransaction(Transaction(1, 0, 1, 1, 1, null, null))
+        processingViewModel.createTransaction(Transaction(1, 0, 1, 1, 2, null, null))
 
         processingViewModel.getTransactionResponse().observe(this, Observer<Resource<TransactionResponse>> { response ->
 

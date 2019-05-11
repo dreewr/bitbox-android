@@ -15,11 +15,9 @@ import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity :BaseActivity() {
 
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
     lateinit var mainViewModel: MainViewModel
 
     companion object {
@@ -54,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     }
     fun initViews(){
 
-        txt_saldo_main.text = intent.getIntExtra("USER_SALDO", 0).toString()
+        txt_saldo_main.text = intent.getFloatExtra("USER_SALDO", 0f).toString()
         txt_username_main.text = intent.getStringExtra("USER_NAME")
 
     }

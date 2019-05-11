@@ -23,12 +23,8 @@ import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_products.*
 import javax.inject.Inject
 
-class ProductsActivity : AppCompatActivity() {
+class ProductsActivity : BaseActivity() {
 
-    //todo: esc
-    // rever sobre as libraries
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
     lateinit var productsViewModel: ProductsViewModel
     var isProductSelected: Boolean = false
     var enablePurchase: Boolean = false
@@ -88,7 +84,7 @@ class ProductsActivity : AppCompatActivity() {
 
             VerificationActivity.getStartIntent(this).let {
                 it.putExtra("USER_ID", intent.getIntExtra("USER_ID", 0))
-                it.putExtra("USER_SALDO", intent.getIntExtra("USER_SALDO", 0))
+                it.putExtra("USER_SALDO", intent.getFloatExtra("USER_SALDO", 0.0f))
                 it.putExtra("USER_NAME", intent.getStringExtra("USER_NAME").toString())
 
             }.run { startActivity(this) }
@@ -99,7 +95,7 @@ class ProductsActivity : AppCompatActivity() {
 
             MainActivity.getStartIntent(this).let {
                 it.putExtra("USER_ID", intent.getIntExtra("USER_ID", 0))
-                it.putExtra("USER_SALDO", intent.getIntExtra("USER_SALDO", 0))
+                it.putExtra("USER_SALDO", intent.getFloatExtra("USER_SALDO", 0.0f))
                 it.putExtra("USER_NAME", intent.getStringExtra("USER_NAME"))
 
             }.run {
@@ -121,10 +117,13 @@ class ProductsActivity : AppCompatActivity() {
         btn_product3.isClickable = false
         btn_product4.isClickable = false
 
-        productsViewModel.getUserBalance().postValue(intent.getIntExtra("USER_SALDO", 0).toDouble())
+//        productsViewModel.getUserBalance().postValue(intent.getFloatExtra("USER_SALDO", 0.0f).toDouble())
 
-        txt_saldo_products.text = intent.getIntExtra("USER_SALDO", 0).toString()
-        txt_saldoatual_products.text = intent.getIntExtra("USER_SALDO", 0).toString()
+        productsViewModel.getUserBalance().postValue(1000.0)
+//        txt_saldo_products.text = intent.getIntExtra("USER_SALDO", 0).toString()
+        txt_saldo_products.text = "1000"
+        txt_saldoatual_products.text = "1000"
+//        txt_saldoatual_products.text = intent.getFloatExtra("USER_SALDO", 0.0f).toString()
 
         view_purchaseresult.visibility = GONE
 
@@ -156,7 +155,6 @@ class ProductsActivity : AppCompatActivity() {
 
             productsViewModel.getSelectedProductPrice().postValue(items!!.itensDisponiveis[0].produtoPreco)
 
-
         }
 
         btn_product2.setOnClickListener {
@@ -170,7 +168,7 @@ class ProductsActivity : AppCompatActivity() {
 
             view_purchaseresult.visibility = VISIBLE
             productsViewModel.getSelectedProductPrice().postValue(items!!.itensDisponiveis[1].produtoPreco)
-            
+
         }
 
         btn_product3.setOnClickListener {
