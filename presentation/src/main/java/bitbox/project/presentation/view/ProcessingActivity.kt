@@ -155,12 +155,7 @@ class ProcessingActivity : BaseActivity() {
         //Rebuy --> Goes to Products
         btn_rebuy_processing.setOnClickListener {
 
-            ProductsActivity.getStartIntent(this).let {
-                it.putExtra("USER_ID", intent.getIntExtra("USER_ID", 0))
-                it.putExtra("USER_SALDO", intent.getIntExtra("USER_SALDO", 0))
-                it.putExtra("USER_NAME", intent.getStringExtra("USER_NAME").toString())
-
-            }.run { startActivity(this) }
+            ProductsActivity.getStartIntent(this).run { startActivity(this) }
 
             finish()
 
@@ -174,11 +169,7 @@ class ProcessingActivity : BaseActivity() {
 
         btn_back_processing.setOnClickListener {
 
-            ProductsActivity.getStartIntent(this).let {
-                it.putExtra("USER_ID", intent.getIntExtra("USER_ID", 0))
-                it.putExtra("USER_SALDO", intent.getIntExtra("USER_SALDO", 0))
-                it.putExtra("USER_NAME", intent.getStringExtra("USER_NAME").toString())
-            }.run { startActivity(this) }
+            ProductsActivity.getStartIntent(this).run { startActivity(this) }
 
             finish()
         }

@@ -75,12 +75,7 @@ dependencies {
     implementation presentationDependencies.javaxAnnotation
     implementation presentationDependencies.androidAnnotations
 
-//    implementation presentationDependencies.androidSupportV4
-//    implementation presentationDependencies.androidSupportV13
-//    implementation presentationDependencies.appCompatV7
-//    implementation presentationDependencies.supportRecyclerView
-//    implementation presentationDependencies.supportDesign
-//    implementation presentationDependencies.timber
+    implementation presentationDependencies.zxing
 
     implementation presentationDependencies.rxAndroid
     implementation presentationDependencies.glide

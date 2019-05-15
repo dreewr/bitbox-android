@@ -1,23 +1,19 @@
 package bitbox.project.presentation.view
 
-
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
-import bitbox.project.domain.model.transaction.TransactionInfo
 import bitbox.project.presentation.R
 import bitbox.project.presentation.viewmodel.MainViewModel
-import bitbox.project.presentation.viewmodel.ViewModelFactory
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main.*
-import javax.inject.Inject
+import com.google.zxing.integration.android.IntentIntegrator
 
 class MainActivity :BaseActivity() {
 
+    lateinit var qrScan: IntentIntegrator
     lateinit var mainViewModel: MainViewModel
 
     companion object {
@@ -31,17 +27,27 @@ class MainActivity :BaseActivity() {
         setContentView(R.layout.activity_main)
         AndroidInjection.inject(this)
         //transactionInfo = TransactionInfo() //sempre inicializa
-        initViews()
         initViewModel()
+        initViews()
+        initScanner()
         initListeners()
     }
 
     fun initListeners(){
-        //TODO: Atualizar para que seja pega dinamicamente
-        transactionInfo.machineID = 1
-        btn_scan.setOnClickListener { ProductsActivity.getStartIntent(this).run { startActivity(this) } }
+        btn_scan.setOnClickListener {
+            qrScan.initiateScan()
+           // ProductsActivity.getStartIntent(this).run { startActivity(this) }
+        }
     }
 
+    fun initScanner(){
+        qrScan = IntentIntegrator(this).let {
+            it.setBeepEnabled(false)
+                .setOrientationLocked(false)
+                .setPrompt("Coloque o código QR na linha vermelha para escaneá-lo")
+                .setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES)
+        }
+    }
     fun initViews(){
         txt_saldo_main.text = userInfo.userBalance.toString()
         txt_username_main.text = userInfo.userName
@@ -56,5 +62,17 @@ class MainActivity :BaseActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
+    }
+
+
+    //Getting the scan results
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        IntentIntegrator.parseActivityResult(requestCode, resultCode, data).run {
+            Log.d("MainActivity", this.contents.toString())
+
+            //TODO> fazer a lógica pra extrair o id da máquina a partir do id
+            transactionInfo.machineID = 1
+        }
+        ProductsActivity.getStartIntent(this).run { startActivity(this) }
     }
 }

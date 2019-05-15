@@ -24,6 +24,7 @@ ext{
     okHttpVersion = '3.8.1'
     retrofitVersion = '2.3.0'
 
+    xzingVersion = '3.4.0'
     timberVersion = '4.5.1'
     glideVersion = '4.0.0'
     daggerVersion = '2.16'
@@ -79,6 +80,7 @@ ext{
             supportRecyclerView:"com.android.support:recyclerview-v7:${supportLibraryVersion}",
             supportDesign:      "com.android.support:design:${supportLibraryVersion}",
             timber:             "com.jakewharton.timber:timber:${timberVersion}",
+            zxing:              "com.journeyapps:zxing-android-embedded:${xzingVersion}",
 
             daggerSupport:      "com.google.dagger:dagger-android-support:${daggerVersion}",
             daggerProcessor:    "com.google.dagger:dagger-android-processor:${daggerVersion}",
