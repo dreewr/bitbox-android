@@ -13,6 +13,7 @@ import javax.inject.Inject
 
 import bitbox.project.presentation.state.Resource
 import bitbox.project.presentation.state.ResourceState
+import bitbox.project.presentation.state.ViewState
 
 
 /**
@@ -27,7 +28,15 @@ open class ProcessingViewModel @Inject internal constructor(
 
     private val transaction: MutableLiveData<Resource<Transaction>> = MutableLiveData()
     private val transactionResponse: MutableLiveData<Resource<TransactionResponse>> = MutableLiveData()
+    var isPurchaseCreated: MutableLiveData<ViewState> = MutableLiveData()
+    var isTransactionCompleted: MutableLiveData<ViewState> = MutableLiveData()
+    var isProductDelivered: MutableLiveData<ViewState> = MutableLiveData()
 
+    init {
+        isPurchaseCreated.value = ViewState.LOADING
+        isTransactionCompleted.value = ViewState.LOADING
+        isProductDelivered.value = ViewState.LOADING
+    }
     override fun onCleared() {
         createTransaction?.dispose()
         super.onCleared()
@@ -37,20 +46,19 @@ open class ProcessingViewModel @Inject internal constructor(
         return transactionResponse
     }
 
-    fun fetchTransaction(transactionID: String){
+    fun fetchTransaction(transactionID: String) : LiveData<Resource<Transaction>>{
         transaction.postValue(Resource(ResourceState.LOADING, null, null))
-        //Peço pro caso de uso ser executado passando como parâmetro uma instância da classe interna
-
         getTransaction?.execute(TransactionSubscriber(),
            GetTransaction.Params.forTransaction(transactionID))
+
+        return transaction
     }
 
-    fun createTransaction(newTransaction : Transaction) {
+    fun createTransaction(newTransaction : Transaction) : LiveData<Resource<TransactionResponse>> {
         transactionResponse.postValue(Resource(ResourceState.LOADING, null, null))
-        //Peço pro caso de uso ser executado passando como parâmetro uma instância da classe interna
-
         createTransaction?.execute(TransactionCreationSubscriber(),
             CreateTransaction.Params.forBlock(newTransaction))
+        return  transactionResponse
     }
 
     inner class TransactionSubscriber: DisposableObserver<Transaction>() {

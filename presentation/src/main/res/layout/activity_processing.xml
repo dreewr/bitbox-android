@@ -98,6 +98,16 @@
                         android:textColor="@color/accent" android:layout_weight="4"/>
 
                 <TextView
+
+                        android:id="@+id/txt_thirdmessage_processing"
+                        android:layout_marginTop="16dp"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text=""
+                        android:textStyle="bold"
+                        android:gravity="center" android:textSize="16sp"
+                        android:textColor="@color/accent" android:layout_weight="4"/>
+
+                <TextView
                         android:id="@+id/txt_errormessage_processing"
                         android:layout_marginTop="16dp"
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
