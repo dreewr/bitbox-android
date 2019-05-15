@@ -99,7 +99,7 @@
 
                 <TextView
 
-                        android:id="@+id/txt_thirdmessage_processing"
+                        android:id="@+id/txt_third_message_processing"
                         android:layout_marginTop="16dp"
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:text=""

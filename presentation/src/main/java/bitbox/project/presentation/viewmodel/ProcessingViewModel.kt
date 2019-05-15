@@ -31,6 +31,7 @@ open class ProcessingViewModel @Inject internal constructor(
     var isPurchaseCreated: MutableLiveData<ViewState> = MutableLiveData()
     var isTransactionCompleted: MutableLiveData<ViewState> = MutableLiveData()
     var isProductDelivered: MutableLiveData<ViewState> = MutableLiveData()
+    var transactionID: Int = 0
 
     init {
         isPurchaseCreated.value = ViewState.LOADING
@@ -45,6 +46,8 @@ open class ProcessingViewModel @Inject internal constructor(
     fun getTransactionResponse(): LiveData<Resource<TransactionResponse>> {
         return transactionResponse
     }
+
+    fun getTransaction() : LiveData<Resource<Transaction>> = transaction
 
     fun fetchTransaction(transactionID: String) : LiveData<Resource<Transaction>>{
         transaction.postValue(Resource(ResourceState.LOADING, null, null))

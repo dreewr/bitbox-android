@@ -73,47 +73,39 @@ class ProcessingActivity : BaseActivity() {
             }
         })
 
-        processingViewModel.isTransactionCompleted.observe(this, Observer<ViewState> { state ->
-            when(state){
-                ViewState.ERROR -> setErrorView()
-
-                ViewState.SUCCESS -> {
-
-
-                }
-            }
-        })
-
         processingViewModel.isProductDelivered.observe(this, Observer<ViewState> { state ->
             when(state){
                 ResourceState.ERROR -> setErrorView()
 
                 ResourceState.SUCCESS -> {
 
-
+                    txt_third_message_processing.setText(R.string.processing_third_message_success)
+                    iv_success_processing.visibility = VISIBLE
+                    pgs_processing.visibility = GONE
 
                 }
             }
 
         })
 
+        processingViewModel.getTransaction().observe(this,  Observer<Resource<Transaction>>{ resource ->
+            handleTransactionState(resource)
+        })
 
     }
 
     private fun handleTransactionCreated(resource: Resource<TransactionResponse>) {
+
         when (resource.status) {
             ResourceState.SUCCESS -> {
-
+                processingViewModel.transactionID = resource.data!!.idTransacao
                 if (resource.data!!.erro.equals("0")){
                     processingViewModel.isPurchaseCreated.value = ViewState.SUCCESS
+                    processingViewModel.fetchTransaction(processingViewModel.transactionID.toString())
 
                 } else {
-                    //TODO: Trocar, ajustei isso por teste só
-                    processingViewModel.isPurchaseCreated.value = ViewState.SUCCESS
+                    processingViewModel.isPurchaseCreated.value = ViewState.ERROR
                 }
-
-                //TODO: Deixar essa string dinâmica
-                processingViewModel.fetchTransaction("1")
 
             }
 
@@ -123,16 +115,20 @@ class ProcessingActivity : BaseActivity() {
         }
     }
 
-    private fun handleTransactionState(resource: Resource<TransactionResponse>) {
+    private fun handleTransactionState(resource: Resource<Transaction>) {
         when (resource.status) {
             ResourceState.SUCCESS -> {
 
-                if (resource.data!!.erro.equals("0")){
+                if (resource.data?.erro!!.equals("0") && resource.data?.estado == 5){
+
                     processingViewModel.isProductDelivered.value = ViewState.SUCCESS
 
+                } else if (resource.data.erro!!.equals("0") && resource.data.estado != 5) {
+
+                    processingViewModel.fetchTransaction(processingViewModel.transactionID.toString())
+
                 } else {
-                    //TODO: Trocar, ajustei isso por teste só
-                    processingViewModel.isProductDelivered.value = ViewState.SUCCESS
+                    processingViewModel.isProductDelivered.value = ViewState.ERROR
                 }
 
             }
@@ -200,8 +196,8 @@ class ProcessingActivity : BaseActivity() {
         txt_firstmessage_processing.setText(R.string.processing_first_message_loading)
         txt_secondmessage_processing.visibility = GONE
         txt_firstmessage_processing.setText(R.string.processing_second_message_loading)
-        txt_thirdmessage_processing.visibility = GONE
-        txt_thirdmessage_processing.setText(R.string.processing_third_message_loading)
+        txt_third_message_processing.visibility = GONE
+        txt_third_message_processing.setText(R.string.processing_third_message_loading)
 
         txt_errormessage_processing.setText(R.string.processing_error)
         txt_errormessage_processing.visibility = GONE
