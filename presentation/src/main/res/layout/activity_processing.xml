@@ -137,6 +137,8 @@
                 android:id="@+id/btn_rebuy_processing"
                 android:layout_width="match_parent" android:layout_height="@dimen/btn_height"
                 android:layout_marginTop="24dp"
+                android:enabled="false"
+                android:alpha="0.8"
                 android:background="@drawable/bg_gradient"
                 android:padding="@dimen/btn_padding" android:paddingStart="40dp" android:paddingEnd="24dp"
                 android:text="Comprar novamente"
@@ -146,7 +148,8 @@
                 android:drawableEnd="@drawable/ic_qr_code"/>
 
         <Button
-
+                android:enabled="false"
+                android:alpha="0.8"
                 android:layout_width="match_parent" android:layout_height="@dimen/btn_height"
                 android:id="@+id/btn_notify_processing"
                 android:layout_marginTop="8dp"
@@ -156,7 +159,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/icons"
                 android:drawablePadding="8dp"
-                android:drawableEnd="@drawable/ic_qr_code"/>
+                android:drawableEnd="@drawable/ic_error_black"/>
 
     </LinearLayout>
 

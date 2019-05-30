@@ -41,10 +41,9 @@ class ProcessingActivity : BaseActivity() {
         setContentView(R.layout.activity_processing)
         AndroidInjection.inject(this)
 
-        initViewModel()
         initViews()
+        initViewModel()
         initListeners()
-
         createTransaction()
         startProcessing()
     }
@@ -70,6 +69,8 @@ class ProcessingActivity : BaseActivity() {
                     txt_firstmessage_processing.setText(R.string.processing_first_message_success)
 
                 }
+
+                ResourceState.LOADING ->  pgs_processing.visibility = VISIBLE
             }
         })
 
@@ -84,6 +85,7 @@ class ProcessingActivity : BaseActivity() {
                     pgs_processing.visibility = GONE
 
                 }
+                ResourceState.LOADING ->  pgs_processing.visibility = VISIBLE
             }
 
         })
@@ -144,7 +146,9 @@ class ProcessingActivity : BaseActivity() {
 
     fun setErrorView(){
         pgs_processing.visibility = GONE
-        iv_error_processing.visibility = VISIBLE
+        //iv_error_processing.visibility = VISIBLE
+        iv_success_processing.visibility = VISIBLE
+        txt_errormessage_processing.setText("Sucesso! Seu produto será entregue a qualquer momento")
         txt_errormessage_processing.visibility = VISIBLE
         enableButtons(true, 1f)
     }
@@ -203,10 +207,7 @@ class ProcessingActivity : BaseActivity() {
         txt_errormessage_processing.visibility = GONE
         pgs_processing.visibility = VISIBLE
 
-        btn_notify_processing.alpha = 0.8f
-        btn_notify_processing.isClickable = false
-        btn_rebuy_processing.alpha = 0.8f
-        btn_rebuy_processing.isClickable = false
+        enableButtons(false, 0.8f)
 
     }
 

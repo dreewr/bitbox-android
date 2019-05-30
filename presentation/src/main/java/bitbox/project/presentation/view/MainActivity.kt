@@ -46,9 +46,11 @@ class MainActivity :BaseActivity() {
                 .setPrompt("Coloque o código QR na linha vermelha para escaneá-lo")
                 .setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES)
                 .setBarcodeImageEnabled(true)
+                //.setTimeout(2000)
                 .addExtra("USER_ID", userInfo.userID)
                 .addExtra("USER_SALDO", userInfo.userBalance)
                 .addExtra("USER_NAME", userInfo.userName)
+
         }
     }
     fun initViews(){
@@ -70,7 +72,6 @@ class MainActivity :BaseActivity() {
     //Getting the scan results
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
-        data
         IntentIntegrator.parseActivityResult(requestCode, resultCode, data).run {
             // Log.d("MainActivity", this.contents?.toString())
             //TODO> fazer a lógica pra extrair o id da máquina a partir do id
