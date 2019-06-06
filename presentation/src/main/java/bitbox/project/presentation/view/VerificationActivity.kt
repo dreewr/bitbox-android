@@ -9,14 +9,17 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.View.VISIBLE
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import bitbox.project.domain.model.transaction.Transaction
 import bitbox.project.domain.model.transaction.TransactionResponse
+import bitbox.project.domain.model.user.Pin
 import bitbox.project.presentation.R
 import bitbox.project.presentation.state.Resource
 import bitbox.project.presentation.state.ResourceState
 import bitbox.project.presentation.viewmodel.ProcessingViewModel
+import bitbox.project.presentation.viewmodel.VerificationViewModel
 import bitbox.project.presentation.viewmodel.ViewModelFactory
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_verification.*
@@ -25,6 +28,7 @@ import javax.inject.Inject
 class VerificationActivity : BaseActivity() {
 
     lateinit var mainViewModel: ProcessingViewModel
+    lateinit var viewModel: VerificationViewModel
 
     companion object {
         fun getStartIntent(context : Context):Intent{
@@ -49,6 +53,8 @@ class VerificationActivity : BaseActivity() {
         btn_verify.setOnClickListener {
 
             mainViewModel.createTransaction(Transaction(1,0,transactionInfo.machineID , transactionInfo.productID, userInfo.userID))
+           // viewModel.checkPin(userInfo.userID.toString(), Pin().apply { this.pin = "1234" })
+
         }
 
         btn_back_verification.setOnClickListener {
@@ -62,17 +68,22 @@ class VerificationActivity : BaseActivity() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (p0?.length == 4) enableVerifyButton(true)
+                if(p0?.length == 4){
+                     enableVerifyButton(true)
+                    pinGamb = p0.toString()
+                }
                 else enableVerifyButton(false)
             }
         })
     }
+   var pinGamb = "0000"
 
     private fun handleDataState(resource: Resource<TransactionResponse>) {
         when (resource.status) {
             ResourceState.SUCCESS -> {
 
-                ProcessingActivity.getStartIntent(this).run { startActivity(this) }
+                if (pinGamb.equals("1234"))ProcessingActivity.getStartIntent(this).run { startActivity(this) }
+                else Toast.makeText(this, "Pin não confere com o usuário!", Toast.LENGTH_SHORT).show()
                 pgs_verify.visibility = View.GONE
                 btn_verify.visibility = VISIBLE
             }

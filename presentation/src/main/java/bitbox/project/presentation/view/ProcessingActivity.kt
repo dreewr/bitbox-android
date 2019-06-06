@@ -70,6 +70,7 @@ class ProcessingActivity : BaseActivity() {
 
                 }
 
+
                 ResourceState.LOADING ->  pgs_processing.visibility = VISIBLE
             }
         })
@@ -118,6 +119,7 @@ class ProcessingActivity : BaseActivity() {
     }
 
     private fun handleTransactionState(resource: Resource<Transaction>) {
+        enableButtons(true, 1f)
         when (resource.status) {
             ResourceState.SUCCESS -> {
 
@@ -136,7 +138,7 @@ class ProcessingActivity : BaseActivity() {
             }
             ResourceState.ERROR -> {
 
-                processingViewModel.isProductDelivered.value = ViewState.SUCCESS
+                processingViewModel.isProductDelivered.value = ViewState.ERROR
 
             }
 
@@ -148,7 +150,7 @@ class ProcessingActivity : BaseActivity() {
         pgs_processing.visibility = GONE
         //iv_error_processing.visibility = VISIBLE
         iv_success_processing.visibility = VISIBLE
-        txt_errormessage_processing.setText("Sucesso! Seu produto será entregue a qualquer momento")
+        txt_errormessage_processing.setText("Sucesso!")
         txt_errormessage_processing.visibility = VISIBLE
         enableButtons(true, 1f)
     }
@@ -202,7 +204,6 @@ class ProcessingActivity : BaseActivity() {
         txt_firstmessage_processing.setText(R.string.processing_second_message_loading)
         txt_third_message_processing.visibility = GONE
         txt_third_message_processing.setText(R.string.processing_third_message_loading)
-
         txt_errormessage_processing.setText(R.string.processing_error)
         txt_errormessage_processing.visibility = GONE
         pgs_processing.visibility = VISIBLE

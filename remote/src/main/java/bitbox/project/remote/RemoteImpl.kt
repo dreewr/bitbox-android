@@ -7,6 +7,8 @@ import bitbox.project.domain.model.machine.BitboxItems
 import bitbox.project.domain.model.user.User
 import bitbox.project.domain.model.transaction.Transaction
 import bitbox.project.domain.model.transaction.TransactionResponse
+import bitbox.project.domain.model.user.Pin
+import bitbox.project.domain.model.user.PinResponse
 import bitbox.project.domain.model.user.UserAuth
 import javax.inject.Inject
 
@@ -21,6 +23,10 @@ import javax.inject.Inject
 
 class RemoteImpl @Inject constructor(
         private val service: RetrofitService) : Remote {
+    override fun checkPin(userID: String, pin: Pin): Observable<PinResponse> {
+        return service.checkPin(userID, pin)
+    }
+
     override fun getTransaction(transactionID: String): Observable<Transaction> {
         return service.getTransaction(transactionID)
     }

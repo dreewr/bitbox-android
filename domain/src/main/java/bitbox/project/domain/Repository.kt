@@ -4,6 +4,8 @@ import bitbox.project.domain.model.machine.BitboxItems
 import bitbox.project.domain.model.user.User
 import bitbox.project.domain.model.transaction.Transaction
 import bitbox.project.domain.model.transaction.TransactionResponse
+import bitbox.project.domain.model.user.Pin
+import bitbox.project.domain.model.user.PinResponse
 import io.reactivex.Observable
 
 
@@ -26,5 +28,7 @@ interface Repository{
     fun createTransaction(newTransaction : Transaction): Observable<TransactionResponse>
 
     fun getTransaction(transactionID: String): Observable<Transaction>
+
+    fun checkPin(userID: String, pin : Pin): Observable<PinResponse>
 
 }

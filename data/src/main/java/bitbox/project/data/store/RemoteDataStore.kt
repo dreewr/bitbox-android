@@ -6,6 +6,8 @@ import bitbox.project.domain.model.machine.BitboxItems
 import bitbox.project.domain.model.user.User
 import bitbox.project.domain.model.transaction.Transaction
 import bitbox.project.domain.model.transaction.TransactionResponse
+import bitbox.project.domain.model.user.Pin
+import bitbox.project.domain.model.user.PinResponse
 import javax.inject.Inject
 
 
@@ -34,7 +36,9 @@ open class RemoteDataStore @Inject constructor(
     override fun createTransaction(newTransaction: Transaction): Observable<TransactionResponse> {
         return remote.createTransaction(newTransaction)
     }
-
-
+//
+    override fun checkPin(userID: String, pin: Pin): Observable<PinResponse> {
+        return remote.checkPin(userID, pin)
+    }
 
 }

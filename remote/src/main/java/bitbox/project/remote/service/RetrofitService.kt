@@ -5,6 +5,8 @@ import bitbox.project.domain.model.machine.BitboxItems
 import io.reactivex.Observable
 import bitbox.project.domain.model.transaction.Transaction
 import bitbox.project.domain.model.transaction.TransactionResponse
+import bitbox.project.domain.model.user.Pin
+import bitbox.project.domain.model.user.PinResponse
 import bitbox.project.domain.model.user.User
 import bitbox.project.domain.model.user.UserAuth
 import retrofit2.http.Body
@@ -40,4 +42,7 @@ interface RetrofitService {
     fun getTransaction(@Path("transactionID") transactionID: String)
             : Observable<Transaction>
 
+    @POST("/usuarios/{userID}/checkPin")
+    fun checkPin(@Path("userID")bitboxID: String, @Body pin: Pin)
+            : Observable<PinResponse>
 }

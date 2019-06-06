@@ -6,6 +6,8 @@ import io.reactivex.Observable
 
 import bitbox.project.domain.model.transaction.Transaction
 import bitbox.project.domain.model.transaction.TransactionResponse
+import bitbox.project.domain.model.user.Pin
+import bitbox.project.domain.model.user.PinResponse
 
 /**
  * Created by André Santos
@@ -22,4 +24,5 @@ interface DataStore{
     fun createTransaction(newTransaction : Transaction): Observable<TransactionResponse>
     fun executeUserLogin(username: String, password: String): Observable<User>
     fun getBitboxItems(bitboxID: String): Observable<BitboxItems>
+    fun checkPin(userID: String, pin: Pin): Observable<PinResponse>
 }
