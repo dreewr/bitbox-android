@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
@@ -64,13 +65,16 @@ class ProcessingActivity : BaseActivity() {
 
     fun startProcessing(){
 
+        //PROCESSAMENTO DA CRIAÇÃO
         processingViewModel.isPurchaseCreated.observe(this, Observer<ViewState> { state ->
             when(state){
-                ViewState.ERROR -> setErrorView()
+                ViewState.ERROR -> setErrorView("Máquina ocupada! Tente novamente mais tarde")
 
                 ViewState.SUCCESS -> {
 
                     txt_firstmessage_processing.setText(R.string.processing_first_message_success)
+                    txt_secondmessage_processing.setText(R.string.processing_second_message_loading)
+                    txt_secondmessage_processing.visibility = VISIBLE
 
                 }
 
@@ -78,18 +82,21 @@ class ProcessingActivity : BaseActivity() {
             }
         })
 
+        //PROCESSAMENTO DA ATUALIZAÇÃO
         processingViewModel.isProductDelivered.observe(this, Observer<ViewState> { state ->
             when(state){
-                ResourceState.ERROR -> setErrorView()
+                ViewState.ERROR -> setErrorView("Houve algum problema no processamento da sua compra!")
 
-                ResourceState.SUCCESS -> {
+                ViewState.SUCCESS -> {
 
                     txt_third_message_processing.setText(R.string.processing_third_message_success)
+                    txt_third_message_processing.visibility = VISIBLE
                     iv_success_processing.visibility = VISIBLE
                     pgs_processing.visibility = GONE
 
                 }
-                ResourceState.LOADING ->  pgs_processing.visibility = VISIBLE
+
+                ViewState.LOADING ->  pgs_processing.visibility = VISIBLE
             }
 
         })
@@ -106,20 +113,20 @@ class ProcessingActivity : BaseActivity() {
             ResourceState.SUCCESS -> {
                 processingViewModel.transactionID = resource.data!!.idTransacao
 
-                if (resource.data!!.erro.equals("0")){
+                if (resource.data!!.erro == 0){
 
                     processingViewModel.isPurchaseCreated.value = ViewState.SUCCESS
                     processingViewModel.fetchTransaction(processingViewModel.transactionID.toString())
 
                 } else {
-
+                    Log.d("Processamento", "Erro Criação -> Dentro do Success")
                     processingViewModel.isPurchaseCreated.value = ViewState.ERROR
                 }
 
             }
 
             ResourceState.ERROR -> {
-
+                Log.d("Processamento", "Erro -> Bug")
                 processingViewModel.isPurchaseCreated.value = ViewState.ERROR
             }
         }
@@ -130,11 +137,11 @@ class ProcessingActivity : BaseActivity() {
         when (resource.status) {
             ResourceState.SUCCESS -> {
 
-                if (resource.data?.erro!!.equals("0") && resource.data?.estado == 5){
+                if (resource.data?.erro!! == 0 && resource.data?.estado == 5){
 
                     processingViewModel.isProductDelivered.value = ViewState.SUCCESS
 
-                } else if (resource.data.erro!!.equals("0") && resource.data.estado != 5) {
+                } else if (resource.data.erro!! == 0 && resource.data.estado != 5) {
 
                     processingViewModel.fetchTransaction(processingViewModel.transactionID.toString())
 
@@ -153,11 +160,12 @@ class ProcessingActivity : BaseActivity() {
         }
     }
 
-    fun setErrorView(){
+    fun setErrorView(message: String){
         pgs_processing.visibility = GONE
-        //iv_error_processing.visibility = VISIBLE
-        iv_success_processing.visibility = VISIBLE
-        txt_errormessage_processing.setText("Sucesso!")
+        iv_error_processing.visibility = VISIBLE
+        iv_success_processing.visibility = GONE
+//        "Houve algum erro no processamento da sua transação, tente novamente mais tarde!"
+        txt_errormessage_processing.text = message
         txt_errormessage_processing.visibility = VISIBLE
         enableButtons(true, 1f)
     }
@@ -208,7 +216,6 @@ class ProcessingActivity : BaseActivity() {
         txt_firstmessage_processing.visibility = VISIBLE
         txt_firstmessage_processing.setText(R.string.processing_first_message_loading)
         txt_secondmessage_processing.visibility = GONE
-        txt_firstmessage_processing.setText(R.string.processing_second_message_loading)
         txt_third_message_processing.visibility = GONE
         txt_third_message_processing.setText(R.string.processing_third_message_loading)
         txt_errormessage_processing.setText(R.string.processing_error)

@@ -2,11 +2,9 @@
     <string name="app_name">Bitbox</string>
     <string name="processing_first_message_loading">Aguarde enquanto sua compra é criada...</string>
     <string name="processing_first_message_success">Sua compra foi criada com sucesso!</string>
-    <string name="processing_second_message_loading">Processando seu pedido...</string>
+    <string name="processing_second_message_loading">Aguarde a entrega do seu produto...</string>
     <string name="processing_second_message_success">Seu pedido já foi processado!</string>
     <string name="processing_third_message_loading">Aguarde a entrega do seu produto...</string>
     <string name="processing_third_message_success">Sua compra foi concluída com sucesso!</string>
-
     <string name="processing_error">Houve algum erro na sua compra. Tente novamente mais tarde</string>
-
 </resources>
