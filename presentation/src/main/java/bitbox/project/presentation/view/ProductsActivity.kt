@@ -101,7 +101,6 @@ class ProductsActivity : BaseActivity() {
             btn_product4.setBackgroundResource(R.color.transparent)
 
             transactionInfo.productID = items!!.itensDisponiveis[0].produtoId
-
             isProductSelected = true
 
             view_purchaseresult.visibility = VISIBLE
@@ -148,7 +147,7 @@ class ProductsActivity : BaseActivity() {
             btn_product3.setBackgroundResource(R.color.transparent)
             btn_product4.setBackgroundResource(R.drawable.bg_gradient)
 
-            transactionInfo.productID = items!!.itensDisponiveis[2].produtoId
+            transactionInfo.productID = items!!.itensDisponiveis[3].produtoId
 
             isProductSelected = true
 

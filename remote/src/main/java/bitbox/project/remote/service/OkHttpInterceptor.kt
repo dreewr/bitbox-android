@@ -27,6 +27,9 @@ class OkHttpInterceptor constructor (private val authToken: String) : Intercepto
                 .header("X-AUTH-TOKEN", authToken)
                 .build();
 
+        if(originalRequest.url().toString().contains("transacoes")){
+            originalRequest.body()
+        }
         return chain.proceed(newRequest)
     }
 }

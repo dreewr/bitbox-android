@@ -49,8 +49,16 @@ class ProcessingActivity : BaseActivity() {
     }
 
     fun createTransaction(){
-        //processingViewModel.createTransaction(Transaction(1,0,transactionInfo.machineID , transactionInfo.productID, userInfo.userID))
-        processingViewModel.createTransaction(Transaction(1,0, 1, 1, 20))
+
+        val transaction = Transaction(1,
+            0,
+            userInfo.userID,
+            transactionInfo.machineID ,
+            transactionInfo.productID, 0, "debug")
+
+
+        processingViewModel.createTransaction(transaction)
+//        processingViewModel.createTransaction(Transaction(1,0, 1, 1, 20))
             .observe(this, Observer<Resource<TransactionResponse>> { response ->
                 handleTransactionCreated(response)
             })
