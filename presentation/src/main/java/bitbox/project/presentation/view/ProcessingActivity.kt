@@ -50,15 +50,12 @@ class ProcessingActivity : BaseActivity() {
 
     fun createTransaction(){
 
-        val transaction = Transaction(1,
+        processingViewModel.createTransaction(Transaction(1,
             0,
             userInfo.userID,
             transactionInfo.machineID ,
-            transactionInfo.productID, 0, "debug")
+            transactionInfo.productID, 0, "debug"))
 
-
-        processingViewModel.createTransaction(transaction)
-//        processingViewModel.createTransaction(Transaction(1,0, 1, 1, 20))
             .observe(this, Observer<Resource<TransactionResponse>> { response ->
                 handleTransactionCreated(response)
             })
@@ -66,7 +63,6 @@ class ProcessingActivity : BaseActivity() {
     }
 
     fun startProcessing(){
-
 
         processingViewModel.isPurchaseCreated.observe(this, Observer<ViewState> { state ->
             when(state){
@@ -77,7 +73,6 @@ class ProcessingActivity : BaseActivity() {
                     txt_firstmessage_processing.setText(R.string.processing_first_message_success)
 
                 }
-
 
                 ResourceState.LOADING ->  pgs_processing.visibility = VISIBLE
             }
@@ -110,17 +105,21 @@ class ProcessingActivity : BaseActivity() {
         when (resource.status) {
             ResourceState.SUCCESS -> {
                 processingViewModel.transactionID = resource.data!!.idTransacao
+
                 if (resource.data!!.erro.equals("0")){
+
                     processingViewModel.isPurchaseCreated.value = ViewState.SUCCESS
                     processingViewModel.fetchTransaction(processingViewModel.transactionID.toString())
 
                 } else {
+
                     processingViewModel.isPurchaseCreated.value = ViewState.ERROR
                 }
 
             }
 
             ResourceState.ERROR -> {
+
                 processingViewModel.isPurchaseCreated.value = ViewState.ERROR
             }
         }

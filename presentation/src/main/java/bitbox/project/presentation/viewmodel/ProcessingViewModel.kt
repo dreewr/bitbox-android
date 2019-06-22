@@ -26,8 +26,8 @@ open class ProcessingViewModel @Inject internal constructor(
     private val createTransaction: CreateTransaction?,
     private val getTransaction: GetTransaction?): ViewModel() {
 
-    private val transaction: MutableLiveData<Resource<Transaction>> = MutableLiveData()
-    private val transactionResponse: MutableLiveData<Resource<TransactionResponse>> = MutableLiveData()
+    val transaction: MutableLiveData<Resource<Transaction>> = MutableLiveData()
+    val transactionResponse: MutableLiveData<Resource<TransactionResponse>> = MutableLiveData()
     var isPurchaseCreated: MutableLiveData<ViewState> = MutableLiveData()
     var isTransactionCompleted: MutableLiveData<ViewState> = MutableLiveData()
     var isProductDelivered: MutableLiveData<ViewState> = MutableLiveData()

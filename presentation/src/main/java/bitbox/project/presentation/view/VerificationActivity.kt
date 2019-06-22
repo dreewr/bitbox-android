@@ -2,11 +2,9 @@ package bitbox.project.presentation.view
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.View.VISIBLE
 import android.widget.Toast
@@ -14,20 +12,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import bitbox.project.domain.model.transaction.Transaction
 import bitbox.project.domain.model.transaction.TransactionResponse
-import bitbox.project.domain.model.user.Pin
 import bitbox.project.presentation.R
 import bitbox.project.presentation.state.Resource
 import bitbox.project.presentation.state.ResourceState
 import bitbox.project.presentation.viewmodel.ProcessingViewModel
 import bitbox.project.presentation.viewmodel.VerificationViewModel
-import bitbox.project.presentation.viewmodel.ViewModelFactory
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_verification.*
-import javax.inject.Inject
 
 class VerificationActivity : BaseActivity() {
 
-    lateinit var mainViewModel: ProcessingViewModel
+    lateinit var temporaryViewModel: ProcessingViewModel
     lateinit var viewModel: VerificationViewModel
 
     companion object {
@@ -45,15 +40,14 @@ class VerificationActivity : BaseActivity() {
 
         initViews()
 
-        mainViewModel.getTransactionResponse().observe(this, Observer<Resource<TransactionResponse>> { response ->
+        temporaryViewModel.transaction.observe(this, Observer<Resource<Transaction>> { response ->
 
             handleDataState(response)
         })
 
         btn_verify.setOnClickListener {
 
-            mainViewModel.createTransaction(Transaction(1,0,transactionInfo.machineID , transactionInfo.productID, userInfo.userID))
-           // viewModel.checkPin(userInfo.userID.toString(), Pin().apply { this.pin = "1234" })
+            temporaryViewModel.fetchTransaction("33")
 
         }
 
@@ -78,14 +72,11 @@ class VerificationActivity : BaseActivity() {
     }
    var pinGamb = "0000"
 
-    private fun handleDataState(resource: Resource<TransactionResponse>) {
+    private fun handleDataState(resource: Resource<Transaction>) {
         when (resource.status) {
             ResourceState.SUCCESS -> {
 
-                if (pinGamb.equals("1234"))ProcessingActivity.getStartIntent(this).run { startActivity(this) }
-                else Toast.makeText(this, "Pin não confere com o usuário!", Toast.LENGTH_SHORT).show()
-                pgs_verify.visibility = View.GONE
-                btn_verify.visibility = VISIBLE
+               verifyPin()
             }
 
             ResourceState.LOADING -> {
@@ -95,15 +86,20 @@ class VerificationActivity : BaseActivity() {
             }
             ResourceState.ERROR -> {
 
-                pgs_verify.visibility = View.GONE
-                btn_verify.visibility = View.VISIBLE
+                verifyPin()
 
             }
         }
     }
 
+    fun verifyPin(){
+        if (pinGamb.equals("1234"))ProcessingActivity.getStartIntent(this).run { startActivity(this) }
+        else Toast.makeText(this, "Pin não confere com o usuário!", Toast.LENGTH_SHORT).show()
+        pgs_verify.visibility = View.GONE
+        btn_verify.visibility = VISIBLE
+    }
     fun initViewModel() {
-        mainViewModel = ViewModelProviders.of(this, viewModelFactory)
+        temporaryViewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(ProcessingViewModel::class.java)
     }
 
