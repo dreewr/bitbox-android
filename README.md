@@ -1,40 +1,33 @@
-@Throws(Exception::class)
-override suspend fun saveVirtualCardImage(bitmap: Bitmap) {
-    withContext(Dispatchers.IO) { 
-        val filename = "screenshot_${System.currentTimeMillis()}.png"
-        val fos: OutputStream?
+import io.mockk.every
+import io.mockk.mockk
+import org.junit.Test
+import kotlin.test.assertEquals
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            // Android 10+ (Scoped Storage)
-            val resolver = context.contentResolver
-            val contentValues = ContentValues().apply {
-                put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
-                put(MediaStore.MediaColumns.MIME_TYPE, "image/png")
-                put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
-            }
+class {
 
-            val imageUri: Uri? = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
-            fos = imageUri?.let { resolver.openOutputStream(it) }
-        } else {
-            // Android 9 e abaixo (Fluxo legado)
-            val imagesDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-            if (imagesDir?.exists() == false) {
-                imagesDir.mkdirs()
-            }
-            val image = File(imagesDir, filename)
-            fos = FileOutputStream(image)
+    @Test
+    fun test = returns Unit() {
+        // Mocking the Context and related dependencies
+        val mockContext = mockk<Context>(relaxed = true)
+        val mockContentResolver = mockk<ContentResolver>(relaxed = true)
+        val mockMediaScannerConnection = mockk<MediaScannerConnection>(relaxed = true)
+        val mockFile = mockk<File>(relaxed = true)
+        
+        // Prepare the Context to return mock dependencies
+        every { mockContext.contentResolver } returns mockContentResolver
+        every { mockContext.getExternalFilesDir(any()) } returns mockFile
+        every { mockContext.getExternalMediaDirs() } returns arrayOf(mockFile)
 
-            // Notifica a galeria sobre a nova imagem para Android 9 e abaixo
-            MediaScannerConnection.scanFile(
-                context,
-                arrayOf(image.toString()),
-                null,
-                null
-            )
-        }
-
-        fos?.use {
-            bitmap.compress(Bitmap.CompressFormat.PNG, QUALITY_COMPRESS, it)
-        }
+        // Mocking system functions
+        every { System.currentTimeMillis() } returns 123456789L
+        
+        // Instance of the class under test
+        val virtualCardsLocalSource = VirtualCardsLocalSource(mockContext)
+        
+        // Execute the method
+        val result = .(Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888))
+        
+        // Verify the result
+        assertEquals(Unit, result)
     }
 }
