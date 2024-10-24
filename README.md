@@ -1,33 +1,21 @@
-import io.mockk.every
-import io.mockk.mockk
-import org.junit.Test
-import kotlin.test.assertEquals
+#!/bin/bash
 
-class {
+# Número de repetições
+ITERATIONS=50
 
-    @Test
-    fun test = returns Unit() {
-        // Mocking the Context and related dependencies
-        val mockContext = mockk<Context>(relaxed = true)
-        val mockContentResolver = mockk<ContentResolver>(relaxed = true)
-        val mockMediaScannerConnection = mockk<MediaScannerConnection>(relaxed = true)
-        val mockFile = mockk<File>(relaxed = true)
-        
-        // Prepare the Context to return mock dependencies
-        every { mockContext.contentResolver } returns mockContentResolver
-        every { mockContext.getExternalFilesDir(any()) } returns mockFile
-        every { mockContext.getExternalMediaDirs() } returns arrayOf(mockFile)
+for ((i=1; i<=ITERATIONS; i++))
+do
+  echo "Execução $i"
+  adb logcat -c  # Limpa os logs
+  adb shell monkey -p com.seupacote -c android.intent.category.LAUNCHER 1
 
-        // Mocking system functions
-        every { System.currentTimeMillis() } returns 123456789L
-        
-        // Instance of the class under test
-        val virtualCardsLocalSource = VirtualCardsLocalSource(mockContext)
-        
-        // Execute the method
-        val result = .(Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888))
-        
-        // Verify the result
-        assertEquals(Unit, result)
-    }
-}
+  # Captura o tempo do início
+  adb shell date +"%s%3N" | tee -a start_time_$i.log
+
+  sleep 5
+
+  # Captura o tempo do final
+  adb shell date +"%s%3N" | tee -a end_time_$i.log
+
+  adb shell am force-stop com.seupacote
+done
