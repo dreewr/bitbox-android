@@ -1,38 +1,81 @@
-#!/bin/bash
+package com.example.issuerapp
 
-# Número de repetições
-ITERATIONS=50
+import android.content.Intent
+import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import com.example.issuerapp.databinding.ActivityMainBinding
 
-# Step 1: Throttle CPU before starting the loop
-echo "Throttling CPU to simulate a slower device..."
-# Example: Setting a lower CPU frequency (use a lower available frequency)
-adb shell "echo 600000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
-# Pause to ensure the changes take effect
-sleep 5
+class MainActivity : AppCompatActivity() {
 
-# Step 2: Run the loop with the CPU throttled
-for ((i=1; i<=ITERATIONS; i++))
-do
-  echo "Execução $i"
-  # Clear logs if needed
-  # adb logcat -c
-  
-  # Launch the app using monkey
-  adb shell monkey -p com.itau -c android.intent.category.LAUNCHER 1
+    private lateinit var binding: ActivityMainBinding
 
-  # Capture the start time
-  adb shell date +"%s%3N" | tee -a start_time_$i.log
+    // Launcher for starting MockWalletApp's activity and receiving result
+    private val walletActivityLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        // Handle the result from MockWalletApp
+        if (result.resultCode == RESULT_OK) {
+            val data = result.data
+            // TODO: Process the data returned from MockWalletApp
+        }
+    }
 
-  # Wait for 30 seconds to simulate a slower operation
-  sleep 30
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-  # Capture the end time
-  adb shell date +"%s%3N" | tee -a end_time_$i.log
+        binding.addCardToWalletButton.setOnClickListener {
+            // Start MockWalletApp's activity to add the card to wallet
+            val intent = Intent("com.example.mockwalletapp.ACTION_ADD_CARD_TO_WALLET")
+            walletActivityLauncher.launch(intent)
+        }
+    }
+}
 
-  # Force-stop the app
-  adb shell am force-stop com.itau
-done
+<activity android:name=".MainActivity" />
 
-# Step 3: Reset CPU to default speed after completion
-echo "Resetting CPU frequency to default..."
-adb shell "echo 1500000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
+
+package com.example.mockwalletapp
+
+import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.example.mockwalletapp.databinding.ActivityWalletAddCardBinding
+
+class WalletAddCardActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityWalletAddCardBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        
+        binding = ActivityWalletAddCardBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.confirmButton.setOnClickListener {
+            // Prepare result data
+            val resultData = Intent().apply {
+                putExtra("cardAddedToWallet", true)
+            }
+            setResult(Activity.RESULT_OK, resultData)
+            finish()
+        }
+
+        binding.cancelButton.setOnClickListener {
+            setResult(Activity.RESULT_CANCELED)
+            finish()
+        }
+    }
+}
+
+
+<activity android:name=".WalletAddCardActivity" android:exported="true">
+    <intent-filter>
+        <action android:name="com.example.mockwalletapp.ACTION_ADD_CARD_TO_WALLET" />
+        <category android:name="android.intent.category.DEFAULT" />
+    </intent-filter>
+</activity>
