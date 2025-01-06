@@ -1,13 +1,24 @@
+import android.content.Context
+import android.view.View
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.test.core.app.ApplicationProvider
+import io.mockk.every
+import io.mockk.mockkStatic
+import io.mockk.spyk
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Test
+
 class TagViewsWithIdRecursivelyTest {
 
-    private val context: Context = spy(ApplicationProvider.getApplicationContext<Context>())
+    private val context: Context = spyk(ApplicationProvider.getApplicationContext<Context>())
 
     @Test
     fun `test tagViewsWithIdRecursively sets tag to match view id`() {
-        // Mock getResourceEntryName to return a fake name based on the ID
-        doAnswer { invocation ->
-            "mocked_id_${invocation.arguments[0]}"
-        }.whenever(context.resources).getResourceEntryName(anyInt())
+        // Mock the static method `getResourceEntryName`
+        mockkStatic("android.content.res.Resources") // Mocking static behavior of Android's Resources class
+        every { context.resources.getResourceEntryName(any()) } answers { "mocked_id_${firstArg<Int>()}" }
 
         // Create a root LinearLayout
         val rootLayout = LinearLayout(context).apply {
